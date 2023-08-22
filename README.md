@@ -1,7 +1,7 @@
 ___
-# DELETE THIS INSTRUCTIONS AND ADD A SHORT INTRODUCTION ABOUT YOUR PROJECT
+# CO502
 ___
 
-## Please refer the instructions in below URL:
+
 
 https://projects.ce.pdn.ac.lk/docs/how-to-add-a-project
