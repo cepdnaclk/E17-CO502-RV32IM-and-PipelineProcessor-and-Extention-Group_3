@@ -1,4 +1,4 @@
-module HAZARD_DETECTION_UNIT(
+module hazard_detection_unit(
     // inputs
     REG_WRITE_ADDR_EX,
     MEM_READ_EN_EX,

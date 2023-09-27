@@ -2,12 +2,14 @@ module imm_gen(
     // inputs
     INSTRUCTION,
     IMM_SEL,
-    // IMMputs
+    // outputs
     IMM
 );
 
 input [31:0] INSTRUCTION;
 input [2:0] IMM_SEL;
+
+output [31:0] IMM;
 
 reg [31:0] B_IMM, J_IMM, S_IMM, U_IMM, I_IMM;
 
