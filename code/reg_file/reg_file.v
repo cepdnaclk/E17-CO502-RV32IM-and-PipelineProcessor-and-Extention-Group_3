@@ -16,7 +16,7 @@ module reg_file(
     REG3,
     REG4,
     REG5,
-    REG6
+    REG6 
 );
 
     input [31:0] WRITE_DATA;
@@ -37,7 +37,7 @@ module reg_file(
 		begin
 				for(j = 0; j <= 31; j = j +1 )
 				begin
-					REGISTER[j] <= 32'b00000000000000000000000000000000;			//assigning 
+					REGISTER[j] <= 32'b00000000000000000000000000000000; 
 
 				end
 		end

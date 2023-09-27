@@ -39,11 +39,11 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 2'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
-            ALU_OP <= {5'b10000};
+            ALU_OP <= 5'b10000;
         end
         7'b0010111: begin // AUIPC
             MEM_READ_EN <= 1'd0;
@@ -51,7 +51,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 2'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd1;
             IMM_SEL <= 3'd3;
@@ -63,7 +63,7 @@ module controller(
             BJ_CTRL <= 2'b01;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd2;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd1;
             IMM_SEL <= 3'd1;
@@ -75,7 +75,7 @@ module controller(
             BJ_CTRL <= 2'b01;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd4;
@@ -87,7 +87,7 @@ module controller(
             BJ_CTRL <= 2'b10;
             REG_WRITE_EN <= 1'd0;
             COMP_SEL <= 1'd1;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
@@ -99,7 +99,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd1;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd4;
@@ -111,7 +111,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd02;
@@ -123,7 +123,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd4;
@@ -135,7 +135,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= (FUNC7[5] && !FUNC3[0]) ? 1'd1 : 1'd0; ;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
@@ -147,7 +147,7 @@ module controller(
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
-            WB_VALUE_SEL <= 1'd1;
+            WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
