@@ -2,7 +2,6 @@ module bj_controller(
     // inputs
     PC,
     IMM,
-    ALU_RESULT,
     BJ_CTRL,
     FUNC3,
     ZERO,
@@ -13,7 +12,7 @@ module bj_controller(
     BRANCH_SEL
 );
 
-    input [31:0] PC, IMM, ALU_RESULT;
+    input [31:0] PC, IMM;
     input [1:0] BJ_SIGNAL;
     input [2:0] FUNC3;
     input ZERO, SIGN_BIT, SLTU_BIT;
@@ -22,9 +21,8 @@ module bj_controller(
     output reg BRANCH_SEL;
 
     wire BEQ, BGE, BNE, BLT, BLTU, BGEU;
-    wire [31:0] BRANCH_ADDRESS;
 
-    assign BRANCH_ADDRESS = PC + IMM; // Get the branch address using pc and immediate value
+    // assign BRANCH_ADDRESS = PC + IMM; // Get the branch address using pc and immediate value
 
     // Branch if equal
     assign BEQ = (~FUNC3[2]) & (~FUNC3[1]) &  (~FUNC3[0]) & ZERO;
@@ -44,13 +42,7 @@ module bj_controller(
     end
 
     always @(*) begin
-                            
-    if (BJ_SIGNAL[1] == 1'b1) begin
-        B_PC <= ALU_RESULT;
+        B_PC <= PC+IMM;
     end
-    else begin
-        B_PC <= BRANCH_ADDRESS;
-    end
-end
 
 endmodule

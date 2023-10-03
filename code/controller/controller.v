@@ -134,7 +134,7 @@ module controller(
             MEM_WRITE_EN <= 1'd0;
             BJ_CTRL <= 2'b00;
             REG_WRITE_EN <= 1'd1;
-            COMP_SEL <= (FUNC7[5] && !FUNC3[0]) ? 1'd1 : 1'd0; ;
+            COMP_SEL <= (FUNC7[5] && !FUNC3[0]) ? 1'd1 : 1'd0;
             WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;

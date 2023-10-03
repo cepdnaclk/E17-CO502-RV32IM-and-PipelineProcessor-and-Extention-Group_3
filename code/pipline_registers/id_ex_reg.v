@@ -44,7 +44,6 @@ module id_ex_reg(
 );
 
     always @(posedge CLK, posedge RESET) begin
-
         if (RESET) begin
             REG_WRITE_EN_IDEX <= 1'b0;
             WB_VALUE_SEL_IDEX <= 2'b0;
@@ -102,9 +101,7 @@ module id_ex_reg(
             ADDR_1_IDEX <= ADDR_1_ID;
             ADDR_2_IDEX <= ADDR_2_ID;
             REG_WRITE_ADDR_IDEX <= REG_WRITE_ADDR_ID;
-        end
-
-        
+        end   
     end
 
 endmodule

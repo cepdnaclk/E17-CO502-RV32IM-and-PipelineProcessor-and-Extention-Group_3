@@ -6,10 +6,10 @@ module cache_controller (
     WRITE_EN, // write enable signal
     ADDRESS, // read or write ADDRESS ,alu result
     WRITEDATA, // write data
+    FUNC3,
     // outputs
     READ_DATA, // read data
-	BUSYWAIT,
-    FUNC3
+	BUSYWAIT
 );
     input RESET,READ_EN,WRITE_EN,CLOCK;
     input [31:0] ADDRESS,WRITEDATA;
