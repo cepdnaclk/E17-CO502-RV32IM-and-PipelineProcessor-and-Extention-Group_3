@@ -24,7 +24,7 @@ module ex_mem_reg(
     output [4:0] REG_WRITE_ADDR_EXMEM
 );
 
-    always @(posedge CLK,posedge RESET)
+    always @(posedge CLK, posedge RESET)
     begin
     if(RESET)begin
       REG_WRITE_EN_EXMEM <= 1'd0;
