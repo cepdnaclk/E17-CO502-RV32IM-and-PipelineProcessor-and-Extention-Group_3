@@ -41,7 +41,7 @@ module ex_unit(
     output [4:0] ADDR_1_EX,
     output [4:0] ADDR_2_EX,
     output [31:0] B_PC,
-    output BRANCH_SEL,
+    output BRANCH_SEL
 );
     wire [31:0] Op1_Fwd_Sel_Mux_Out, Op2_Fwd_Sel_Mux_Out;
     wire [31:0] Op1_Sel_Mux_Out, Op2_Sel_Mux_Out;

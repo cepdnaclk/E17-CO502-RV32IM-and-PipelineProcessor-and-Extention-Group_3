@@ -11,7 +11,7 @@ module if_id_reg(
 
     // outputs
     output reg [31:0] PC_IFID,
-    output reg [31:0] INSTRUCTION_IFID,
+    output reg [31:0] INSTRUCTION_IFID
 );
 
     always @(posedge CLK,posedge RESET)
