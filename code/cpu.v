@@ -1,11 +1,24 @@
+`include "../code/pipline_registers/ex_mem_reg.v"
+`include "../code/pipline_registers/id_ex_reg.v"
+`include "../code/pipline_registers/if_id_reg.v"
+`include "../code/pipline_registers/mem_wb_reg.v"
+
 module cpu(
-    
+    input CLK,
+    input RESET,
+    output [31:0] REG0, REG1, REG2, REG3, REG4, REG5, REG6,
+    output reg [31:0] PC_OUT,
 );
+
+always @(*)
+begin
+  PC_OUT <= PC;
+end
 
 if_unit_module if_unit(
     // inputs
-    RESET,
     CLK,
+    RESET,
     LU_HAZARD,
     MEM_BUSYWAIT,
     BRANCH_SEL,
@@ -22,8 +35,8 @@ if_id_reg_module if_id_reg(
     RESET,
     HAZARD_RESET,
     HOLD,
-    PC_IF,
-    INSTRUCTION_IF,
+    PC,
+    INSTRUCTION,
     MEM_BUSYWAIT,
     IMEM_BUSYWAIT,
     // outputs
@@ -35,32 +48,32 @@ id_unit_module id_unit(
     // inputs
     CLK,
     RESET,
-    PC_IF,
+    PC_IFID,
     INSTRUCTION_IFID, // CONTROL_UNIT, HAZARD_DETECTION_UNIT, REGISTER_FILE, IMM_GENERATOR
-    WRITE_ADDR, // REGISTER_FILE
-    WRITE_DATA, // REGISTER_FILE
-    WRITE_EN,
+    REG_WRITE_ADDR_MEMWB, // REGISTER_FILE
+    Wb_Select_Mux_out, // REGISTER_FILE from wb stage
+    REG_WRITE_EN_MEMWB,
     REG_WRITE_ADDR_EX, // HAZARD_DETECTION_UNIT
     MEM_READ_EN_EX, // HAZARD_DETECTION_UNIT
     BRANCH_SEL,
     // outputs
     // Controller
-    REG_WRITE_EN, //  wrten_reg
-    WB_VALUE_SEL, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN, // d_mem_r
-    MEM_WRITE_EN, // d_mem_w
-    BJ_CTRL,
-    ALU_OP, // alu_op
-    COMP_SEL,
-    OP2_SEL, // mux2
-    OP1_SEL, // mux1
+    REG_WRITE_EN_ID, //  wrten_reg
+    WB_VALUE_SEL_ID, // ALU_RESULT, MEM, PC + 4
+    MEM_READ_EN_ID, // d_mem_r
+    MEM_WRITE_EN_ID, // d_mem_w
+    BJ_CTRL_ID,
+    ALU_OP_ID, // alu_op
+    COMP_SEL_ID,
+    OP2_SEL_ID, // mux2
+    OP1_SEL_ID, // mux1
     PC_ID,
     // Reg_File
-    DATA_1,
-    DATA_2,
+    DATA_1_ID,
+    DATA_2_ID,
     REG0, REG1, REG2, REG3, REG4, REG5, REG6,
     // Imm_Gen
-    IMM,
+    IMM_ID,
     // Hazard_Detection_Unit
     LU_HAZARD,
     // Flush_Unit
@@ -68,10 +81,10 @@ id_unit_module id_unit(
     IFID_RESET,
     IDEX_RESET,
     // Other
-    FUNC3,
+    FUNC3_ID,
     ADDR_1_ID,
     ADDR_2_ID,
-    REG_WRITE_ADDR
+    REG_WRITE_ADDR_ID
 );
 
 id_ex_reg_module id_ex_reg(
@@ -157,10 +170,11 @@ ex_unit_module ex_unit(
     MEM_WRITE_EN_EX,
     PC_EX,
     RESULT,
-    REF_DATA_2_EX,
+    REG_DATA_2_EX,
     FUNC3_EX,
     ADDR_1_EX,
     ADDR_2_EX,
+    REG_WRITE_ADDR_EX,
     B_PC,
     BRANCH_SEL
 );
@@ -209,7 +223,14 @@ mem_unit_module mem_unit(
     MEM_READ_EN_WB,
     REG_WRITE_ADDR_WB,
     // outputs
-    MEM_BUSYWAIT,
+    MEM_BUSYWAIT, // memory busy wait unit
+    REG_WRITE_EN_MEM,
+    WB_VALUE_SEL_MEM,
+    MEM_READ_EN_MEM,
+    PC_4_MEM,
+    ALU_RESULT,
+    READ_DATA,
+    REG_WRITE_ADDR_MEM
 );
 
 mem_wb_reg_module mem_wb_reg(
@@ -232,6 +253,13 @@ mem_wb_reg_module mem_wb_reg(
     ALU_RES_MEMWB,
     MEM_READ_MEMWB,
     REG_WRITE_ADDR_MEMWB
+);
+
+mux3x1 WB_SEL_MUX(
+    ALU_RES_MEMWB,
+    MEM_READ_MEMWB,
+    PC_4_MEMWB,
+    Wb_Select_Mux_out
 );
 
 endmodule
