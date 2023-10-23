@@ -13,7 +13,7 @@ module hazard_detection_unit(
     input [4:0] REG_WRITE_ADDR_EX;
     input MEM_READ_EN, OP1_SEL_ID, OP2_SEL_ID, MEM_READ_EN_EX;
     input [4:0] ADDR_1_ID, ADDR_2_ID;
-    output LU_HAZARD;
+    output reg LU_HAZARD;
 
     always @ (*)
     begin

@@ -9,9 +9,9 @@ module imm_gen(
 input [31:0] INSTRUCTION;
 input [2:0] IMM_SEL;
 
-output [31:0] IMM;
+output reg [31:0] IMM;
 
-reg [31:0] B_IMM, J_IMM, S_IMM, U_IMM, I_IMM;
+wire [31:0] B_IMM, J_IMM, S_IMM, U_IMM, I_IMM;
 
 // sign extention imidiate value for B type 
 // | imm[12]   | imm[10:5]         | rs2 (5)         | rs1 (5)   | funct3 (3) | imm[4:1]   | imm[11] | opcode (7) |
@@ -34,7 +34,7 @@ assign U_IMM={INSTRUCTION[31:12],{12{1'b0}}};
 assign I_IMM={{21{INSTRUCTION[31]}},INSTRUCTION[30:20]};
 
 always @(*) begin
-    case (select)
+    case (IMM_SEL)
         3'b000: begin
             IMM <= B_IMM;
         end

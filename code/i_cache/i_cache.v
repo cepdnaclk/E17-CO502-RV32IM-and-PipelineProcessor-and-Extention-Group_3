@@ -26,6 +26,8 @@ module i_cache(
     reg [31:0] WORD [0:7][0:3];
     reg [27:0] MEM_ADDR;
 
+    integer i;
+
     i_mem I_MEM(
         // inputs
         CLK,
@@ -47,7 +49,7 @@ module i_cache(
     end
 
     always @(*) begin // Check whather hit or miss
-        if((tag == ADDR[31:7]) && VALID) begin
+        if((TAG == ADDR[31:7]) && VALID) begin
             hit <= 1'b1;
         end
         else begin

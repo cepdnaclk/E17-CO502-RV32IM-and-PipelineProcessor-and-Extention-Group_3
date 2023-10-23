@@ -7,7 +7,7 @@ module id_unit(
     input [4:0] WRITE_ADDR, // REGISTER_FILE
     input [31:0] WRITE_DATA, // REGISTER_FILE
     input WRITE_EN,
-    input [31:0] REG_WRITE_ADDR_EX, // HAZARD_DETECTION_UNIT
+    input [4:0] REG_WRITE_ADDR_EX, // HAZARD_DETECTION_UNIT
     input MEM_READ_EN_EX, // HAZARD_DETECTION_UNIT
     input BRANCH_SEL,
     // outputs 
@@ -36,8 +36,8 @@ module id_unit(
     output IDEX_RESET,
     // Other
     output [2:0] FUNC3,
-    output [31:0] ADDR_1_ID,
-    output [31:0] ADDR_2_ID,
+    output [4:0] ADDR_1_ID,
+    output [4:0] ADDR_2_ID,
     output [4:0] REG_WRITE_ADDR
 );
 
@@ -46,7 +46,7 @@ module id_unit(
     assign ADDR_1_ID = INSTRUCTION_IFID[19:15];
     assign ADDR_2_ID = INSTRUCTION_IFID[24:20];
     assign FUNC3 = INSTRUCTION_IFID[14:12];
-    assign REG_WRITE_ADDR = INSTRUCTION_IFI[11:7];
+    assign REG_WRITE_ADDR = INSTRUCTION_IFID[11:7];
     assign PC_ID = PC_IF;
 
     controller Controller(

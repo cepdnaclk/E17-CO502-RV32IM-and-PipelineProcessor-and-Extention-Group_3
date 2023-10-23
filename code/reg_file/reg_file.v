@@ -43,7 +43,7 @@ module reg_file(
 		end
 		else if(WRITE_EN)
 		begin
-			Register[WRITE_ADDR] <= WRITE_DATA;
+			REGISTER[WRITE_ADDR] <= WRITE_DATA;
 		end
 
 	end
