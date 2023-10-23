@@ -24,11 +24,11 @@ module controller(
     output reg [2:0] IMM_SEL;
     output reg [1:0] BJ_CTRL;
     output reg [1:0] WB_VALUE_SEL;
-    output REG_WRITE_EN, MEM_READ_EN, MEM_WRITE_EN, BJ_CTRL, ALU_OP, COMP_SEL, OP2_SEL, OP1_SEL, IMM_SEL;
+    output REG_WRITE_EN, MEM_READ_EN, MEM_WRITE_EN, COMP_SEL, OP2_SEL, OP1_SEL;
 
     reg [4:0] ALU_SELECT;
 
-    assign ALU_SELECT = {1'b0,FUNC7[6],FUNC3} 
+    assign ALU_SELECT = {1'b0,FUNC7[6],FUNC3};
 
     always @ (*)
     begin

@@ -1,7 +1,7 @@
 module if_unit(
     // inputs
-    input RESET,
     input CLK,
+    input RESET,
     input LU_HAZARD,
     input MEM_BUSYWAIT,
     input BRANCH_SEL,

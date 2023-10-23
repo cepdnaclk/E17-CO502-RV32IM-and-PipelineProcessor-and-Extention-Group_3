@@ -39,7 +39,7 @@ module mem_unit(
         PC_4_MEM <= PC_EXMEM + 4;
     end
 
-    mux2X1 Mem_Data_Sel_Mux(
+    mux2x1 Mem_Data_Sel_Mux(
         REG_DATA_2_EXMEM,
         Wb_Select_Mux_Out,
         MEM_FWD_SEL,
