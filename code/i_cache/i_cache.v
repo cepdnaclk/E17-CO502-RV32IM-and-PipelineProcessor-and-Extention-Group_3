@@ -1,5 +1,3 @@
-`include "../i_mem/i_mem.v"
-
 module i_cache(
     // inputs
     ADDR,

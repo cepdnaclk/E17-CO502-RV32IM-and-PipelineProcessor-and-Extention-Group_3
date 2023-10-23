@@ -13,7 +13,7 @@ module bj_controller(
 );
 
     input [31:0] PC, IMM;
-    input [1:0] BJ_SIGNAL;
+    input [1:0] BJ_CTRL;
     input [2:0] FUNC3;
     input ZERO, SIGN_BIT, SLTU_BIT;
 
@@ -38,7 +38,7 @@ module bj_controller(
     assign BGEU = (FUNC3[2]) & (FUNC3[1]) &  (FUNC3[0]) & (~SLTU_BIT);
 
     always @(*)begin
-        BRANCH_SEL <=(BJ_SIGNAL[0] &(BEQ|BNE|BGE|BLT|BLTU|BGEU)) | (BJ_SIGNAL[1]) | 1'b0;
+        BRANCH_SEL <=(BJ_CTRL[0] &(BEQ|BNE|BGE|BLT|BLTU|BGEU)) | (BJ_CTRL[1]) | 1'b0;
     end
 
     always @(*) begin

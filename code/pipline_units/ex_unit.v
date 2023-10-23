@@ -36,12 +36,13 @@ module ex_unit(
     output MEM_WRITE_EN_EX,
     output [31:0] PC_EX,
     output [31:0] RESULT,
-    output [31:0] REF_DATA_2_EX,
+    output [31:0] REG_DATA_2_EX,
     output [2:0] FUNC3_EX,
     output [4:0] ADDR_1_EX,
     output [4:0] ADDR_2_EX,
+    output [4:0] REG_WRITE_ADDR_EX,
     output [31:0] B_PC,
-    output BRANCH_SEL,
+    output BRANCH_SEL
 );
     wire [31:0] Op1_Fwd_Sel_Mux_Out, Op2_Fwd_Sel_Mux_Out;
     wire [31:0] Op1_Sel_Mux_Out, Op2_Sel_Mux_Out;
@@ -58,6 +59,7 @@ module ex_unit(
     assign FUNC3_EX = FUNC3_IDEX;
     assign ADDR_1_EX = ADDR_1_IDEX;
     assign ADDR_2_EX = ADDR_2_IDEX; 
+    assign REG_WRITE_ADDR_EX = REG_WRITE_ADDR_IDEX;
 
     mux3x1 Op1_Fwd_Sel_Mux(
         DATA_1_IDEX,

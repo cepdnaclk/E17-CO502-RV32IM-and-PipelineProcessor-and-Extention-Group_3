@@ -23,24 +23,24 @@ module id_ex_reg(
     input [31:0] ADDR_2_ID,
     input [4:0] REG_WRITE_ADDR_ID,
     // outputs
-    output REG_WRITE_EN_IDEX, //  wrten_reg
-    output [1:0] WB_VALUE_SEL_IDEX, // ALU_RESULT, MEM, PC + 4
-    output MEM_READ_EN_IDEX, // d_mem_r
-    output MEM_WRITE_EN_IDEX, // d_mem_w
-    output [1:0] BJ_CTRL_IDEX,
-    output [4:0] ALU_OP_IDEX, // alu_op
-    output COMP_SEL_IDEX,
-    output OP2_SEL_IDEX, // mux2
-    output OP1_SEL_IDEX, // mux1
-    output [31:0] IMM_SEL_IDEX, // mux_wire_module
-    output [31:0] PC_IDEX,
-    output [31:0] DATA_1_IDEX,
-    output [31:0] DATA_2_IDEX,
-    output [31:0] IMM_IDEX,
-    output [2:0] FUNC3_IDEX,
-    output [31:0] ADDR_1_IDEX,
-    output [31:0] ADDR_2_IDEX,
-    output [4:0] REG_WRITE_ADDR_IDEX
+    output reg REG_WRITE_EN_IDEX, //  wrten_reg
+    output reg [1:0] WB_VALUE_SEL_IDEX, // ALU_RESULT, MEM, PC + 4
+    output reg MEM_READ_EN_IDEX, // d_mem_r
+    output reg MEM_WRITE_EN_IDEX, // d_mem_w
+    output reg [1:0] BJ_CTRL_IDEX,
+    output reg [4:0] ALU_OP_IDEX, // alu_op
+    output reg COMP_SEL_IDEX,
+    output reg OP2_SEL_IDEX, // mux2
+    output reg OP1_SEL_IDEX, // mux1
+    output reg [31:0] IMM_SEL_IDEX, // mux_wire_module
+    output reg [31:0] PC_IDEX,
+    output reg [31:0] DATA_1_IDEX,
+    output reg [31:0] DATA_2_IDEX,
+    output reg [31:0] IMM_IDEX,
+    output reg [2:0] FUNC3_IDEX,
+    output reg [31:0] ADDR_1_IDEX,
+    output reg [31:0] ADDR_2_IDEX,
+    output reg [4:0] REG_WRITE_ADDR_IDEX
 );
 
     always @(posedge CLK, posedge RESET) begin

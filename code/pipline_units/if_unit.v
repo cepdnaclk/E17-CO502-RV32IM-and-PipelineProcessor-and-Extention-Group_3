@@ -1,7 +1,7 @@
 module if_unit(
     // inputs
-    input RESET,
     input CLK,
+    input RESET,
     input LU_HAZARD,
     input MEM_BUSYWAIT,
     input BRANCH_SEL,
@@ -36,7 +36,7 @@ module if_unit(
     );
 
     always @(*) begin
-        PC_PLUS_FOUR <=PC+4;
+        PC_PLUS_FOUR <= PC + 4;
     end
 
     always @(posedge CLK,posedge RESET) begin //update the pc value depend on the positive clock edge

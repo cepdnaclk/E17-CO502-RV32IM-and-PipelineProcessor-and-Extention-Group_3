@@ -17,17 +17,29 @@ module mem_unit(
     input [4:0] REG_WRITE_ADDR_WB,
     // outputs
     output MEM_BUSYWAIT,
-
+    output REG_WRITE_EN_MEM,
+    output [1:0] WB_VALUE_SEL_MEM,
+    output MEM_READ_EN_MEM,
+    output [31:0] PC_4_MEM,
+    output [31:0] ALU_RESULT,
+    output [31:0] READ_DATA,
+    output REG_WRITE_ADDR_MEM
 );
 
     wire MEM_FWD_SEL;
     wire [31:0] WRITE_DATA;
 
+    assign ALU_RESULT = RESULT;
+    assign REG_WRITE_EN_MEM = REG_WRITE_EN_EXMEM;
+    assign WB_VALUE_SEL_MEM = WB_VALUE_SEL_EXMEM;
+    assign MEM_READ_EN_MEM = MEM_READ_EN_EXMEM;
+    assign REG_WRITE_ADDR_MEM = REG_WRITE_ADDR_EXMEM;
+
     always @(*) begin
         PC_4_MEM <= PC_EXMEM + 4;
     end
 
-    mux2X1 Mem_Data_Sel_Mux(
+    mux2x1 Mem_Data_Sel_Mux(
         REG_DATA_2_EXMEM,
         Wb_Select_Mux_Out,
         MEM_FWD_SEL,
@@ -44,7 +56,7 @@ module mem_unit(
         FUNC3_EXMEM,
         // outputs
         READ_DATA, // read data
-        BUSYWAIT
+        MEM_BUSYWAIT
     );
     mem_fwd_unit Mem_Fwd_Unit(
         // inputs
