@@ -156,12 +156,12 @@ ex_unit_module ex_unit(
     ADDR_2_IDEX,
     REG_WRITE_ADDR_IDEX,
     // OP1_FWD_SEL_MUX, OP2_FWD_SEL_MUX
-    ALU_RES_MEM,
-    WRITE_DATA_WB,
+    ALU_RES_EXMEM,
+    Wb_Select_Mux_out,
     // EX_FWD_UNIT
     REG_WRITE_ADDR_MEM,
-    MEM_WRITE_EN_MEM,
-    REG_WRITE_ADDR_WB,
+    MEM_WRITE_EN_EXMEM,
+    REG_WRITE_ADDR_MEMWB,
     MEM_WRITE_EN_WB,
     // outputs
     REG_WRITE_EN_EX,
@@ -169,7 +169,7 @@ ex_unit_module ex_unit(
     MEM_READ_EN_EX,
     MEM_WRITE_EN_EX,
     PC_EX,
-    RESULT,
+    RESULT_EX,
     REG_DATA_2_EX,
     FUNC3_EX,
     ADDR_1_EX,
@@ -199,7 +199,7 @@ ex_mem_reg_module ex_mem_reg(
     MEM_READ_EN_EXMEM,
     MEM_WRITE_EN_EXMEM,
     PC_EXMEM,
-    RESULT_EXMEM,
+    ALU_RES_EXMEM,
     REG_DATA_2_EXMEM,
     FUNC3_EXMEM,
     REG_WRITE_ADDR_EXMEM
@@ -220,16 +220,16 @@ mem_unit_module mem_unit(
     REG_WRITE_ADDR_EXMEM,
     Wb_Select_Mux_Out, // Mem data select
     // mem_fwd_unit
-    MEM_READ_EN_WB,
-    REG_WRITE_ADDR_WB,
+    MEM_WRITE_EN_EXMEM,
+    REG_WRITE_ADDR_MEMWB,
     // outputs
     MEM_BUSYWAIT, // memory busy wait unit
     REG_WRITE_EN_MEM,
     WB_VALUE_SEL_MEM,
     MEM_READ_EN_MEM,
     PC_4_MEM,
-    ALU_RESULT,
-    READ_DATA,
+    ALU_RES_MEM,
+    MEM_READ_MEM,
     REG_WRITE_ADDR_MEM
 );
 
