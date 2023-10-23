@@ -219,10 +219,10 @@ ex_unit ex_unit_module(
     ALU_RES_EXMEM, 
     Wb_Select_Mux_out, 
     // EX_FWD_UNIT
-    REG_WRITE_ADDR_MEM, 
-    MEM_WRITE_EN_EXMEM, 
-    REG_WRITE_ADDR_MEMWB, 
-    MEM_WRITE_EN_WB, 
+    REG_WRITE_ADDR_MEM,
+    MEM_WRITE_EN_EXMEM,
+    REG_WRITE_ADDR_MEMWB,
+    MEM_WRITE_EN_WB,
     // outputs
     REG_WRITE_EN_EX, 
     WB_VALUE_SEL_EX, 

@@ -28,7 +28,7 @@ module ex_unit(
     input [31:0] REG_WRITE_ADDR_MEM,
     input MEM_WRITE_EN_MEM,
     input [31:0] REG_WRITE_ADDR_WB,
-    input MEM_WRITE_EN_WB,
+    input REG_WRITE_EN_WB,
     // outputs
     output REG_WRITE_EN_EX,
     output [1:0] WB_VALUE_SEL_EX,
@@ -121,7 +121,7 @@ module ex_unit(
         REG_WRITE_ADDR_MEM,
         MEM_WRITE_EN_MEM,
         REG_WRITE_ADDR_WB,
-        MEM_WRITE_EN_WB,
+        REG_WRITE_EN_WB,
         ADDR_1_IDEX,
         ADDR_2_IDEX,
         // outputs
