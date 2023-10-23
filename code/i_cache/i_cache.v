@@ -40,7 +40,7 @@ module i_cache(
     assign VALID = VALID_BITS[ADDR[6:4]];
     assign TAG = TAGS[ADDR[6:4]];
     assign INDEX = ADDR[6:4];
-    assign OFFSET = ADDE[3:2];
+    assign OFFSET = ADDR[3:2];
 
     always @(*) begin // Extract the data from word
         INSTRUCTION <= WORD[INDEX][OFFSET];
@@ -51,7 +51,7 @@ module i_cache(
             hit <= 1'b1;
         end
         else begin
-            hiy <= 1'b0;
+            hit <= 1'b0;
         end
     end
 

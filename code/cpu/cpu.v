@@ -70,7 +70,9 @@ if_id_reg if_id_reg_module(
     IMEM_BUSYWAIT,
     // outputs
     PC_IFID,
-    INSTRUCTION_IFID
+    
+    
+    
 );
 
 id_unit id_unit_module(
