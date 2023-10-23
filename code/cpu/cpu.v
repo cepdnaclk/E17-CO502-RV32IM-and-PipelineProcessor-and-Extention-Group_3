@@ -191,7 +191,7 @@ ex_unit ex_unit_module(
     REG_WRITE_ADDR_MEM,
     MEM_WRITE_EN_EXMEM,
     REG_WRITE_ADDR_MEMWB,
-    MEM_WRITE_EN_WB,
+    REG_WRITE_EN_MEMWB,
     // outputs
     REG_WRITE_EN_EX,
     WB_VALUE_SEL_EX,
