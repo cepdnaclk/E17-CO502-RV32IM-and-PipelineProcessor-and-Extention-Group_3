@@ -27,12 +27,14 @@ module i_cache(
     reg [27:0] MEM_ADDR;
 
     i_mem I_MEM(
-        MEM_ADDR,
-        MEM_READ,
+        // inputs
         CLK,
         RESET,
-        READ_DATA,
-        MEM_BUSYWAIT
+        MEM_READ,
+        MEM_ADDR,
+        // outputs
+        MEM_BUSYWAIT,
+        READ_DATA
     );
 
     assign VALID = VALID_BITS[ADDR[6:4]];

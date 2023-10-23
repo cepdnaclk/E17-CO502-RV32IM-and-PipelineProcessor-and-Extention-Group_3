@@ -1,12 +1,12 @@
 module i_mem(
     // inputs
-    READ_EN,
-    READ_ADDR,
     CLK,
     RESET,
+    READ_EN,
+    READ_ADDR,
     // outputs
-    READ_DATA,
-    BUSYWAIT
+    BUSYWAIT,
+    READ_DATA
 );
 
     input READ_EN, CLK, RESET;

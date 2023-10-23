@@ -11,7 +11,7 @@ module dcache (
     WRITE_DATA,
     // outputs
     READ_DATA,
-	BUSYWAIT,
+	busywait,
     mem_read,
     mem_write,
     mem_address,
