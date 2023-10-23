@@ -30,14 +30,58 @@
 `include "../pipline_units/mem_unit.v"
 
 module cpu(
-    input CLK,
-    input RESET,
-    output [31:0] REG0, REG1, REG2, REG3, REG4, REG5, REG6,
+    input CLK, 
+    input RESET, 
+    output [31:0] REG0,  REG1,  REG2,  REG3,  REG4,  REG5,  REG6, 
     output reg [31:0] PC_OUT
 );
 
-wire LU_HAZARD, MEM_BUSYWAIT, BRANCH_SEL, IMEM_BUSYWAIT;
-wire [31:0] B_PC, PC, INSTRUCTION;
+// if_unit_module
+wire LU_HAZARD, MEM_BUSYWAIT,  BRANCH_SEL,  IMEM_BUSYWAIT;
+wire [31:0] B_PC,  PC,  INSTRUCTION;
+
+// if_id_reg_module
+wire HAZARD_RESET, HOLD;
+wire  PC_IFID;
+wire [31:0] INSTRUCTION_IFID;
+
+// id_unit_module
+wire   HAZARD_DETECTION_UNIT,  REGISTER_FILE,  IMM_GENERATOR,  REG_WRITE_EN_MEMWB,  MEM_READ_EN_EX;
+wire [4:0] REG_WRITE_ADDR_MEMWB;
+wire [31:0] Wb_Select_Mux_Out ,REG_WRITE_ADDR_EX;
+wire REG_WRITE_EN_ID,  WB_VALUE_SEL_ID,  MEM_READ_EN_ID,  MEM_WRITE_EN_ID, BJ_CTRL_ID, ALU_OP_ID,  COMP_SEL_ID, OP2_SEL_ID,  OP1_SEL_ID,  PC_ID, DATA_1_ID, DATA_2_ID, IMM_ID, IFID_HOLD, IFID_RESET, IDEX_RESET, FUNC3_ID, ADDR_1_ID, ADDR_2_ID, REG_WRITE_ADDR_ID; 
+
+// id_ex_reg_module
+wire IMM_SEL_ID;
+wire REG_WRITE_EN_IDEX, MEM_READ_EN_IDEX, MEM_WRITE_EN_IDEX, ALU_OP_IDEX, COMP_SEL_IDEX, OP2_SEL_IDEX, OP1_SEL_IDEX;
+wire [1:0] WB_VALUE_SEL_IDEX;
+wire[4:0] BJ_CTRL_IDEX,REG_WRITE_ADDR_IDEX;
+wire[31:0] IMM_SEL_IDEX,PC_IDEX, DATA_1_IDEX, DATA_2_IDEX, IMM_IDEX,FUNC3_IDEX,ADDR_1_IDEX, ADDR_2_IDEX;
+
+
+// ex_unit_module
+wire  ALU_RES_EXMEM, MEM_WRITE_EN_WB;
+wire [4:0] MEM_WRITE_EN_EXMEM , REG_WRITE_ADDR_MEM;
+wire REG_WRITE_EN_EX,  WB_VALUE_SEL_EX,  MEM_WRITE_EN_EX,  PC_EX,  RESULT_EX,  REG_DATA_2_EX,  FUNC3_EX,  ADDR_1_EX,  ADDR_2_EX;
+
+// ex_mem_reg_module
+wire REG_WRITE_EN_EXMEM,  MEM_READ_EN_EXMEM;
+wire [31:0] PC_EXMEM, REG_DATA_2_EXMEM ;
+wire [1:0] WB_VALUE_SEL_EXMEM;
+wire [2:0] FUNC3_EXMEM;
+wire [4:0] REG_WRITE_ADDR_EXMEM;
+
+// mem_unit_module
+wire[31:0]   RESULT;
+wire   REG_WRITE_EN_MEM,  MEM_READ_EN_MEM ; 
+wire [1:0] WB_VALUE_SEL_MEM;
+wire [31:0] MEM_READ_MEM, ALU_RES_MEM,PC_4_MEM;
+// mem_wb_reg_module
+wire MEM_READ_EN_MEMWB  ;
+wire [1:0] WB_VALUE_SEL_MEMWB;
+wire [31:0] MEM_READ_MEMWB, ALU_RES_MEMWB,PC_4_MEMWB;
+// WB_SEL_MUX
+
 
 always @(*)
 begin
@@ -46,250 +90,249 @@ end
 
 if_unit if_unit_module(
     // inputs
-    CLK,
-    RESET,
-    LU_HAZARD,
-    MEM_BUSYWAIT,
-    BRANCH_SEL,
-    B_PC,
+    CLK, 
+    RESET, 
+    LU_HAZARD, 
+    MEM_BUSYWAIT, 
+    BRANCH_SEL, 
+    B_PC, 
     // outputs
-    PC,
-    INSTRUCTION,
+    PC, 
+    INSTRUCTION, 
     IMEM_BUSYWAIT
 );
 
 if_id_reg if_id_reg_module(
     // inputs
-    CLK,
-    RESET,
-    HAZARD_RESET,
-    HOLD,
-    PC,
-    INSTRUCTION,
-    MEM_BUSYWAIT,
-    IMEM_BUSYWAIT,
+    CLK, 
+    RESET, 
+    HAZARD_RESET, 
+    HOLD, 
+    PC, 
+    INSTRUCTION, 
+    MEM_BUSYWAIT, 
+    IMEM_BUSYWAIT, 
     // outputs
-    PC_IFID,
-    
-    
-    
+    PC_IFID, 
+    INSTRUCTION_IFID
 );
 
 id_unit id_unit_module(
     // inputs
-    CLK,
-    RESET,
-    PC_IFID,
-    INSTRUCTION_IFID, // CONTROL_UNIT, HAZARD_DETECTION_UNIT, REGISTER_FILE, IMM_GENERATOR
-    REG_WRITE_ADDR_MEMWB, // REGISTER_FILE
-    Wb_Select_Mux_out, // REGISTER_FILE from wb stage
-    REG_WRITE_EN_MEMWB,
-    REG_WRITE_ADDR_EX, // HAZARD_DETECTION_UNIT
-    MEM_READ_EN_EX, // HAZARD_DETECTION_UNIT
-    BRANCH_SEL,
+    CLK, 
+    RESET, 
+    PC_IFID, 
+    INSTRUCTION_IFID,  // CONTROL_UNIT,  HAZARD_DETECTION_UNIT,  REGISTER_FILE,  IMM_GENERATOR
+    REG_WRITE_ADDR_MEMWB,  // REGISTER_FILE
+    Wb_Select_Mux_out,  // REGISTER_FILE from wb stage
+    REG_WRITE_EN_MEMWB, 
+    REG_WRITE_ADDR_EX,  // HAZARD_DETECTION_UNIT
+    MEM_READ_EN_EX,  // HAZARD_DETECTION_UNIT
+    BRANCH_SEL, 
     // outputs
     // Controller
-    REG_WRITE_EN_ID, //  wrten_reg
-    WB_VALUE_SEL_ID, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN_ID, // d_mem_r
-    MEM_WRITE_EN_ID, // d_mem_w
-    BJ_CTRL_ID,
-    ALU_OP_ID, // alu_op
-    COMP_SEL_ID,
-    OP2_SEL_ID, // mux2
-    OP1_SEL_ID, // mux1
-    PC_ID,
+    REG_WRITE_EN_ID,  //  wrten_reg
+    WB_VALUE_SEL_ID,  // ALU_RESULT,  MEM,  PC + 4
+    MEM_READ_EN_ID,  // d_mem_r
+    MEM_WRITE_EN_ID,  // d_mem_w
+    BJ_CTRL_ID, 
+    ALU_OP_ID,  // alu_op
+    COMP_SEL_ID, 
+    OP2_SEL_ID,  // mux2
+    OP1_SEL_ID,  // mux1
+    PC_ID, 
     // Reg_File
-    DATA_1_ID,
-    DATA_2_ID,
-    REG0, REG1, REG2, REG3, REG4, REG5, REG6,
+    DATA_1_ID, 
+    DATA_2_ID, 
+    REG0,  REG1,  REG2,  REG3,  REG4,  REG5,  REG6, 
     // Imm_Gen
-    IMM_ID,
+    IMM_ID, 
     // Hazard_Detection_Unit
-    LU_HAZARD,
+    LU_HAZARD, 
     // Flush_Unit
-    IFID_HOLD,
-    IFID_RESET,
-    IDEX_RESET,
+    IFID_HOLD, 
+    IFID_RESET, 
+    IDEX_RESET, 
     // Other
-    FUNC3_ID,
-    ADDR_1_ID,
-    ADDR_2_ID,
+    FUNC3_ID, 
+    ADDR_1_ID, 
+    ADDR_2_ID, 
     REG_WRITE_ADDR_ID
 );
 
 id_ex_reg id_ex_reg_module(
     // input
-    CLK,
-    RESET,
-    IDEX_RESET,
-    MEM_BUSYWAIT,
-    REG_WRITE_EN_ID, //  wrten_reg
-    WB_VALUE_SEL_ID, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN_ID, // d_mem_r
-    MEM_WRITE_EN_ID, // d_mem_w
-    BJ_CTRL_ID,
-    ALU_OP_ID, // alu_op
-    COMP_SEL_ID,
-    OP2_SEL_ID, // mux2
-    OP1_SEL_ID, // mux1
-    IMM_SEL_ID, // mux_wire_module
-    PC_ID,
-    DATA_1_ID,
-    DATA_2_ID,
-    IMM_ID,
-    FUNC3_ID,
-    ADDR_1_ID,
-    ADDR_2_ID,
-    REG_WRITE_ADDR_ID,
+    CLK, 
+    RESET, 
+    IDEX_RESET, 
+    MEM_BUSYWAIT, 
+    REG_WRITE_EN_ID,  //  wrten_reg
+    WB_VALUE_SEL_ID,  // ALU_RESULT,  MEM,  PC + 4
+    MEM_READ_EN_ID,  // d_mem_r
+    MEM_WRITE_EN_ID,  // d_mem_w
+    BJ_CTRL_ID, 
+    ALU_OP_ID,  // alu_op
+    COMP_SEL_ID, 
+    OP2_SEL_ID,  // mux2
+    OP1_SEL_ID,  // mux1
+    IMM_SEL_ID,  // mux_wire_module
+    PC_ID, 
+    DATA_1_ID, 
+    DATA_2_ID, 
+    IMM_ID, 
+    FUNC3_ID, 
+    ADDR_1_ID, 
+    ADDR_2_ID, 
+    REG_WRITE_ADDR_ID, 
     // outputs
-    REG_WRITE_EN_IDEX, //  wrten_reg
-    WB_VALUE_SEL_IDEX, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN_IDEX, // d_mem_r
-    MEM_WRITE_EN_IDEX, // d_mem_w
-    BJ_CTRL_IDEX,
-    ALU_OP_IDEX, // alu_op
-    COMP_SEL_IDEX,
-    OP2_SEL_IDEX, // mux2
-    OP1_SEL_IDEX, // mux1
-    IMM_SEL_IDEX, // mux_wire_module
-    PC_IDEX,
-    DATA_1_IDEX,
-    DATA_2_IDEX,
-    IMM_IDEX,
-    FUNC3_IDEX,
-    ADDR_1_IDEX,
-    ADDR_2_IDEX,
+    REG_WRITE_EN_IDEX,  //  wrten_reg
+    WB_VALUE_SEL_IDEX,  // ALU_RESULT,  MEM,  PC + 4
+    MEM_READ_EN_IDEX,  // d_mem_r
+    MEM_WRITE_EN_IDEX,  // d_mem_w
+    BJ_CTRL_IDEX, 
+    ALU_OP_IDEX,  // alu_op
+    COMP_SEL_IDEX, 
+    OP2_SEL_IDEX,  // mux2
+    OP1_SEL_IDEX,  // mux1
+    IMM_SEL_IDEX,  // mux_wire_module
+    PC_IDEX, 
+    DATA_1_IDEX, 
+    DATA_2_IDEX, 
+    IMM_IDEX, 
+    FUNC3_IDEX, 
+    ADDR_1_IDEX, 
+    ADDR_2_IDEX, 
     REG_WRITE_ADDR_IDEX
 );
 
 ex_unit ex_unit_module(
     // inputs
-    CLK,
-    RESET,
-    MEM_BUSYWAIT,
-    REG_WRITE_EN_IDEX, //  wrten_reg
-    WB_VALUE_SEL_IDEX, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN_IDEX, // d_mem_r
-    MEM_WRITE_EN_IDEX, // d_mem_w
-    BJ_CTRL_IDEX,
-    ALU_OP_IDEX, // alu_op
-    COMP_SEL_IDEX,
-    OP2_SEL_IDEX, // mux2
-    OP1_SEL_IDEX, // mux1
-    IMM_SEL_IDEX, // mux_wire_module
-    PC_IDEX,
-    DATA_1_IDEX,
-    DATA_2_IDEX,
-    IMM_IDEX,
-    FUNC3_IDEX,
-    ADDR_1_IDEX,
-    ADDR_2_IDEX,
-    REG_WRITE_ADDR_IDEX,
-    // OP1_FWD_SEL_MUX, OP2_FWD_SEL_MUX
-    ALU_RES_EXMEM,
-    Wb_Select_Mux_out,
+    CLK, 
+    RESET, 
+    MEM_BUSYWAIT, 
+    REG_WRITE_EN_IDEX,  //  wrten_reg
+    WB_VALUE_SEL_IDEX,  // ALU_RESULT,  MEM,  PC + 4
+    MEM_READ_EN_IDEX,  // d_mem_r
+    MEM_WRITE_EN_IDEX,  // d_mem_w
+    BJ_CTRL_IDEX, 
+    ALU_OP_IDEX,  // alu_op
+    COMP_SEL_IDEX, 
+    OP2_SEL_IDEX,  // mux2
+    OP1_SEL_IDEX,  // mux1
+    IMM_SEL_IDEX,  // mux_wire_module
+    PC_IDEX, 
+    DATA_1_IDEX, 
+    DATA_2_IDEX, 
+    IMM_IDEX, 
+    FUNC3_IDEX, 
+    ADDR_1_IDEX, 
+    ADDR_2_IDEX, 
+    REG_WRITE_ADDR_IDEX, 
+    // OP1_FWD_SEL_MUX,  OP2_FWD_SEL_MUX
+    ALU_RES_EXMEM, 
+    Wb_Select_Mux_out, 
     // EX_FWD_UNIT
     REG_WRITE_ADDR_MEM,
     MEM_WRITE_EN_EXMEM,
     REG_WRITE_ADDR_MEMWB,
-    REG_WRITE_EN_MEMWB,
+    MEM_WRITE_EN_WB,
     // outputs
-    REG_WRITE_EN_EX,
-    WB_VALUE_SEL_EX,
-    MEM_READ_EN_EX,
-    MEM_WRITE_EN_EX,
-    PC_EX,
-    RESULT_EX,
-    REG_DATA_2_EX,
-    FUNC3_EX,
-    ADDR_1_EX,
-    ADDR_2_EX,
-    REG_WRITE_ADDR_EX,
-    B_PC,
+    REG_WRITE_EN_EX, 
+    WB_VALUE_SEL_EX, 
+    MEM_READ_EN_EX, 
+    MEM_WRITE_EN_EX, 
+    PC_EX, 
+    RESULT_EX, 
+    REG_DATA_2_EX, 
+    FUNC3_EX, 
+    ADDR_1_EX, 
+    ADDR_2_EX, 
+    REG_WRITE_ADDR_EX, 
+    B_PC, 
     BRANCH_SEL
 );
 
 ex_mem_reg ex_mem_reg_module(
     // inputs
-    CLK,
-    RESET,
-    MEM_BUSYWAIT,
-    REG_WRITE_EN_EX, //  wrten_reg
-    WB_VALUE_SEL_EX, // ALU_RESULT, MEM, PC + 4
-    MEM_READ_EN_EX, // d_mem_r
-    MEM_WRITE_EN_EX, // d_mem_w
-    PC_EX,
-    RESULT_EX,
-    REG_DATA_2_EX,
-    FUNC3_EX,
-    REG_WRITE_ADDR_EX,
+    CLK, 
+    RESET, 
+    MEM_BUSYWAIT, 
+    REG_WRITE_EN_EX,  //  wrten_reg
+    WB_VALUE_SEL_EX,  // ALU_RESULT,  MEM,  PC + 4
+    MEM_READ_EN_EX,  // d_mem_r
+    MEM_WRITE_EN_EX,  // d_mem_w
+    PC_EX, 
+    RESULT_EX, 
+    REG_DATA_2_EX, 
+    FUNC3_EX, 
+    REG_WRITE_ADDR_EX, 
     // outputs
-    REG_WRITE_EN_EXMEM,
-    WB_VALUE_SEL_EXMEM,
-    MEM_READ_EN_EXMEM,
-    MEM_WRITE_EN_EXMEM,
-    PC_EXMEM,
-    ALU_RES_EXMEM,
-    REG_DATA_2_EXMEM,
-    FUNC3_EXMEM,
+    REG_WRITE_EN_EXMEM, 
+    WB_VALUE_SEL_EXMEM, 
+    MEM_READ_EN_EXMEM, 
+    MEM_WRITE_EN_EXMEM, 
+    PC_EXMEM, 
+    ALU_RES_EXMEM, 
+    REG_DATA_2_EXMEM, 
+    FUNC3_EXMEM, 
     REG_WRITE_ADDR_EXMEM
 );
 
 mem_unit mem_unit_module(
     // inputs
-    CLK,
-    RESET,
-    REG_WRITE_EN_EXMEM,
-    WB_VALUE_SEL_EXMEM,
-    MEM_READ_EN_EXMEM,
-    MEM_WRITE_EN_EXMEM,
-    PC_EXMEM,
-    RESULT,
-    REG_DATA_2_EXMEM,
-    FUNC3_EXMEM,
-    REG_WRITE_ADDR_EXMEM,
-    Wb_Select_Mux_Out, // Mem data select
+    CLK, 
+    RESET, 
+    REG_WRITE_EN_EXMEM, 
+    WB_VALUE_SEL_EXMEM, 
+    MEM_READ_EN_EXMEM, 
+    MEM_WRITE_EN_EXMEM, 
+    PC_EXMEM, 
+    RESULT, 
+    REG_DATA_2_EXMEM, 
+    FUNC3_EXMEM, 
+    REG_WRITE_ADDR_EXMEM, 
+    Wb_Select_Mux_Out,  // Mem data select
     // mem_fwd_unit
-    MEM_WRITE_EN_EXMEM,
-    REG_WRITE_ADDR_MEMWB,
+    MEM_WRITE_EN_EXMEM, 
+    REG_WRITE_ADDR_MEMWB, 
     // outputs
-    MEM_BUSYWAIT, // memory busy wait unit
-    REG_WRITE_EN_MEM,
-    WB_VALUE_SEL_MEM,
-    MEM_READ_EN_MEM,
-    PC_4_MEM,
-    ALU_RES_MEM,
-    MEM_READ_MEM,
+    MEM_BUSYWAIT,  // memory busy wait unit
+    REG_WRITE_EN_MEM, 
+    WB_VALUE_SEL_MEM, 
+    MEM_READ_EN_MEM, 
+    PC_4_MEM, 
+    ALU_RES_MEM, 
+    MEM_READ_MEM, 
     REG_WRITE_ADDR_MEM
 );
 
 mem_wb_reg mem_wb_reg_module(
     // inputs
-    CLK,
-    RESET,
-    MEM_BUSYWAIT,
-    REG_WRITE_EN_MEM,
-    WB_VALUE_SEL_MEM,
-    MEM_READ_EN_MEM,
-    PC_4_MEM,
-    ALU_RES_MEM,
-    MEM_READ_MEM,
-    REG_WRITE_ADDR_MEM,
+    CLK, 
+    RESET, 
+    MEM_BUSYWAIT, 
+    REG_WRITE_EN_MEM, 
+    WB_VALUE_SEL_MEM, 
+    MEM_READ_EN_MEM, 
+    PC_4_MEM, 
+    ALU_RES_MEM, 
+    MEM_READ_MEM, 
+    REG_WRITE_ADDR_MEM, 
     // outputs
-    REG_WRITE_EN_MEMWB,
-    WB_VALUE_SEL_MEMWB,
-    MEM_READ_EN_MEMWB,
-    PC_4_MEMWB,
-    ALU_RES_MEMWB,
-    MEM_READ_MEMWB,
+    REG_WRITE_EN_MEMWB, 
+    WB_VALUE_SEL_MEMWB, 
+    MEM_READ_EN_MEMWB, 
+    PC_4_MEMWB, 
+    ALU_RES_MEMWB, 
+    MEM_READ_MEMWB, 
     REG_WRITE_ADDR_MEMWB
 );
 
 mux3x1 WB_SEL_MUX(
-    ALU_RES_MEMWB,
-    MEM_READ_MEMWB,
-    PC_4_MEMWB,
+    ALU_RES_MEMWB, 
+    MEM_READ_MEMWB, 
+    PC_4_MEMWB, 
+    // output
     Wb_Select_Mux_out
 );
 
