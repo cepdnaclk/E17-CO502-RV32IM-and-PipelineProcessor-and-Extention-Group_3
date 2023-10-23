@@ -1,13 +1,39 @@
-`include "../code/pipline_registers/ex_mem_reg.v"
-`include "../code/pipline_registers/id_ex_reg.v"
-`include "../code/pipline_registers/if_id_reg.v"
-`include "../code/pipline_registers/mem_wb_reg.v"
+`include "../alu_int/alu_int.v"
+`include "../bj_controller/bj_controller.v"
+`include "../complementer/complementer.v"
+`include "../controller/controller.v"
+`include "../d_mem/d_cache.v"
+`include "../d_mem/d_cache_contr.v"
+`include "../d_mem/d_mem.v"
+`include "../data_cache/data_cache.v"
+`include "../data_mem/data_mem.v"
+`include "../hazard_units/ex_fwd_unit.v"
+`include "../hazard_units/mem_fwd_unit.v"
+`include "../hazard_units/flush_unit.v"
+`include "../hazard_units/hazard_detection_unit.v"
+`include "../i_cache/i_cache.v"
+`include "../i_mem/i_mem.v"
+`include "../imm_gen/imm_gen.v"
+`include "../mux/mux2x1.v"
+`include "../mux/mux3x1.v"
+`include "../mux/mux4x1.v"
+`include "../mux/mux5x1.v"
+`include "../common_modules/mux2x1_32.v"
+`include "../reg_file/reg_file.v"
+`include "../pipline_registers/ex_mem_reg.v"
+`include "../pipline_registers/id_ex_reg.v"
+`include "../pipline_registers/if_id_reg.v"
+`include "../pipline_registers/mem_wb_reg.v"
+`include "../pipline_units/if_unit.v"
+`include "../pipline_units/id_unit.v"
+`include "../pipline_units/ex_unit.v"
+`include "../pipline_units/mem_unit.v"
 
 module cpu(
     input CLK,
     input RESET,
     output [31:0] REG0, REG1, REG2, REG3, REG4, REG5, REG6,
-    output reg [31:0] PC_OUT,
+    output reg [31:0] PC_OUT
 );
 
 always @(*)
@@ -15,7 +41,7 @@ begin
   PC_OUT <= PC;
 end
 
-if_unit_module if_unit(
+if_unit if_unit_module(
     // inputs
     CLK,
     RESET,
@@ -29,7 +55,7 @@ if_unit_module if_unit(
     IMEM_BUSYWAIT
 );
 
-if_id_reg_module if_id_reg(
+if_id_reg if_id_reg_module(
     // inputs
     CLK,
     RESET,
@@ -44,7 +70,7 @@ if_id_reg_module if_id_reg(
     INSTRUCTION_IFID
 );
 
-id_unit_module id_unit(
+id_unit id_unit_module(
     // inputs
     CLK,
     RESET,
@@ -87,7 +113,7 @@ id_unit_module id_unit(
     REG_WRITE_ADDR_ID
 );
 
-id_ex_reg_module id_ex_reg(
+id_ex_reg id_ex_reg_module(
     // input
     CLK,
     RESET,
@@ -132,7 +158,7 @@ id_ex_reg_module id_ex_reg(
     REG_WRITE_ADDR_IDEX
 );
 
-ex_unit_module ex_unit(
+ex_unit ex_unit_module(
     // inputs
     CLK,
     RESET,
@@ -179,7 +205,7 @@ ex_unit_module ex_unit(
     BRANCH_SEL
 );
 
-ex_mem_reg_module ex_mem_reg(
+ex_mem_reg ex_mem_reg_module(
     // inputs
     CLK,
     RESET,
@@ -205,7 +231,7 @@ ex_mem_reg_module ex_mem_reg(
     REG_WRITE_ADDR_EXMEM
 );
 
-mem_unit_module mem_unit(
+mem_unit mem_unit_module(
     // inputs
     CLK,
     RESET,
@@ -233,7 +259,7 @@ mem_unit_module mem_unit(
     REG_WRITE_ADDR_MEM
 );
 
-mem_wb_reg_module mem_wb_reg(
+mem_wb_reg mem_wb_reg_module(
     // inputs
     CLK,
     RESET,

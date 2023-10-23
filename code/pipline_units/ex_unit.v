@@ -40,7 +40,7 @@ module ex_unit(
     output [2:0] FUNC3_EX,
     output [4:0] ADDR_1_EX,
     output [4:0] ADDR_2_EX,
-    output [4:0] REG_WRITE_ADDR_EX;
+    output [4:0] REG_WRITE_ADDR_EX,
     output [31:0] B_PC,
     output BRANCH_SEL
 );
