@@ -26,23 +26,22 @@ reg [7:0] memory_array [63:0];
 
 //Detecting an incoming memory access
 reg [3:0]counter;
-reg readaccess, writeaccess;
+reg READ_ACCESS, WRITE_ACCESS;
 
 
 always @(*)
 begin
 	BUSYWAIT <= ((READ_EN || WRITE_EN)&& counter!=4'b1111)? 1 : 0;
-	readaccess <= (READ_EN && !WRITE_EN)? 1'b1 : 1'b0;
-	writeaccess <= (!READ_EN && WRITE_EN)? 1'b1 : 1'b0;
+	READ_ACCESS <= (READ_EN && !WRITE_EN)? 1'b1 : 1'b0;
+	WRITE_ACCESS <= (!READ_EN && WRITE_EN)? 1'b1 : 1'b0;
 end
-
 
 
 always @(posedge CLOCK,posedge RESET) begin
     if (RESET) begin
         counter <= 4'b0000;
     end
-    else if(readaccess || writeaccess)
+    else if(READ_ACCESS || WRITE_ACCESS)
     begin
         counter <= counter+4'b0001;
     end
