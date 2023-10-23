@@ -3,7 +3,7 @@ module mem_wb_reg(
     input CLK,
     input RESET,
     input MEM_BUSYWAIT,
-    input REG_WRITE_EN_MEM,
+    input  REG_WRITE_EN_MEM,
     input [1:0] WB_VALUE_SEL_MEM,
     input MEM_READ_EN_MEM,
     input [31:0] PC_4_MEM,
@@ -11,13 +11,13 @@ module mem_wb_reg(
     input [31:0] MEM_READ_MEM,
     input [4:0] REG_WRITE_ADDR_MEM,
     // outputs
-    output REG_WRITE_EN_MEMWB,
-    output [1:0] WB_VALUE_SEL_MEMWB,
-    output MEM_READ_EN_MEMWB,
-    output [31:0] PC_4_MEMWB,
-    output [31:0] ALU_RES_MEMWB,
-    output [31:0] MEM_READ_MEMWB,
-    output [4:0] REG_WRITE_ADDR_MEMWB
+    output reg REG_WRITE_EN_MEMWB,
+    output reg [1:0] WB_VALUE_SEL_MEMWB,
+    output reg MEM_READ_EN_MEMWB,
+    output reg [31:0] PC_4_MEMWB,
+    output reg [31:0] ALU_RES_MEMWB,
+    output reg [31:0] MEM_READ_MEMWB,
+    output reg [4:0] REG_WRITE_ADDR_MEMWB
 );
 
     always @(posedge CLK, posedge RESET)

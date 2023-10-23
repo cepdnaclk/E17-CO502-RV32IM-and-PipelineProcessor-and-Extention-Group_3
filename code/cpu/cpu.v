@@ -36,6 +36,9 @@ module cpu(
     output reg [31:0] PC_OUT
 );
 
+wire LU_HAZARD, MEM_BUSYWAIT, BRANCH_SEL, IMEM_BUSYWAIT;
+wire [31:0] B_PC, PC, INSTRUCTION;
+
 always @(*)
 begin
   PC_OUT <= PC;

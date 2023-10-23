@@ -36,7 +36,7 @@ module if_unit(
     );
 
     always @(*) begin
-        PC_PLUS_FOUR <=PC+4;
+        PC_PLUS_FOUR <= PC + 4;
     end
 
     always @(posedge CLK,posedge RESET) begin //update the pc value depend on the positive clock edge

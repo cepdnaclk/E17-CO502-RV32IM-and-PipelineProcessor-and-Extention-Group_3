@@ -13,15 +13,15 @@ module ex_mem_reg(
     input [2:0] FUNC3_EX,
     input [4:0] REG_WRITE_ADDR_EX,
     // outputs
-    output REG_WRITE_EN_EXMEM,
-    output [1:0] WB_VALUE_SEL_EXMEM,
-    output MEM_READ_EN_EXMEM,
-    output MEM_WRITE_EN_EXMEM,
-    output [31:0] PC_EXMEM,
-    output [31:0] RESULT_EXMEM,
-    output [31:0] REG_DATA_2_EXMEM,
-    output [2:0] FUNC3_EXMEM,
-    output [4:0] REG_WRITE_ADDR_EXMEM
+    output reg REG_WRITE_EN_EXMEM,
+    output reg [1:0] WB_VALUE_SEL_EXMEM,
+    output reg MEM_READ_EN_EXMEM,
+    output reg MEM_WRITE_EN_EXMEM,
+    output reg [31:0] PC_EXMEM,
+    output reg [31:0] RESULT_EXMEM,
+    output reg [31:0] REG_DATA_2_EXMEM,
+    output reg [2:0] FUNC3_EXMEM,
+    output reg [4:0] REG_WRITE_ADDR_EXMEM
 );
 
     always @(posedge CLK, posedge RESET)
