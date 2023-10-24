@@ -33,6 +33,16 @@ module i_mem(
         READ_ACCESS <= (READ_EN)? 1'b1 : 1'b0;
     end
 
+    always @(posedge CLK,posedge RESET) begin
+    if (RESET) begin
+        COUNTER <= 4'b0000;
+    end
+    else if(READ_ACCESS)
+    begin
+        COUNTER <= COUNTER + 4'b0001;
+    end
+end
+
     always @(posedge CLK,posedge RESET)
     begin
         case (COUNTER)
