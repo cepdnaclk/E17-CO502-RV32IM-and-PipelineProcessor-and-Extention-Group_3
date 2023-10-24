@@ -112,7 +112,7 @@ if_id_reg if_id_reg_module(
     CLK, 
     RESET, 
     HAZARD_RESET, 
-    HOLD, 
+    IFID_HOLD, 
     PC, 
     INSTRUCTION, 
     MEM_BUSYWAIT, 

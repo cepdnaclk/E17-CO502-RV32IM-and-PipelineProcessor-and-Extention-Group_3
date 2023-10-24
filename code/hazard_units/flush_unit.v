@@ -15,7 +15,7 @@ module flush_unit(
     // In case of a load use hazard, IF/ID PR must hold it's value
     // In case either a branch/jump or load use hazard occurs, ID/EX PR must be reset
     assign IFID_RESET = BRANCH_SEL;
-    assign IDID_HOLD = !BRANCH_SEL && LU_HAZ_SIGNAL;
-    assign IDEX_RESET = BRANCH_SEL && LU_HAZ_SIGNAL;
+    assign IFID_HOLD = !BRANCH_SEL && LU_HAZ_SIGNAL;
+    assign IDEX_RESET = BRANCH_SEL || LU_HAZ_SIGNAL;
 
 endmodule

@@ -38,7 +38,6 @@ module reg_file(
 				for(j = 0; j <= 31; j = j +1 )
 				begin
 					REGISTER[j] <= 32'b00000000000000000000000000000000; 
-
 				end
 		end
 		else if(WRITE_EN)
