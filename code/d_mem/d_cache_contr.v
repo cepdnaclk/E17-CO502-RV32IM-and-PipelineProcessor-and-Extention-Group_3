@@ -27,6 +27,7 @@ module cache_controller (
     wire [127:0] mem_readdata;
     reg [127:0] mem_WRITEDATA;
     reg [27:0] mem_ADDRESS;
+    reg [31:0] STORE_DATA;
     
     wire [127:0] cache_mem_WRITEDATA;
     wire [27:0] cache_mem_ADDRESS;
@@ -71,16 +72,16 @@ module cache_controller (
     always @(*)begin
         case(FUNC3)
             3'b000: begin    //store byte
-                store_data <= sb;
+                STORE_DATA <= sb;
             end
             3'b001: begin   //store half word
-                store_data <= sh;
+                STORE_DATA <= sh;
             end
             3'b010:begin       //store full word
-                store_data <= WRITEDATA;
+                STORE_DATA <= WRITEDATA;
             end
             default:begin       //store full word
-                store_data <= WRITEDATA;
+                STORE_DATA <= WRITEDATA;
             end
         endcase
     end
@@ -95,7 +96,7 @@ module cache_controller (
     and(cache_mem_BUSYWAIT,1'b1,mem_BUSYWAIT);
 
 
-    dcache data_cache(CLOCK,RESET,cache_read,cache_write,ADDRESS,store_data,cache_read_data,cache_BUSYWAIT,cache_mem_read,cache_mem_write,cache_mem_ADDRESS,cache_mem_WRITEDATA,mem_readdata,cache_mem_BUSYWAIT);
+    dcache data_cache(CLOCK,RESET,cache_read,cache_write,ADDRESS,STORE_DATA,cache_read_data,cache_BUSYWAIT,cache_mem_read,cache_mem_write,cache_mem_ADDRESS,cache_mem_WRITEDATA,mem_readdata,cache_mem_BUSYWAIT);
 
     data_memory my_data_memory(CLOCK,RESET,mem_read,mem_write,mem_ADDRESS,mem_WRITEDATA,mem_readdata,mem_BUSYWAIT);
 
