@@ -22,7 +22,9 @@ module i_mem(
 
     initial
     begin
-        // $readmemh("F:/Semester08/CO502/E17-CO502-RV32IM-and-PipelineProcessor-and-Extention-Group_3/testbench/cpu/memfile.mem",MEM_ARRAY);
+        $readmemh("",MEM_ARRAY);
+        //$readmemh("../../",MEM_ARRAY);
+        //$readmemh("../../",MEM_ARRAY);
     end
 
     always @(*)
