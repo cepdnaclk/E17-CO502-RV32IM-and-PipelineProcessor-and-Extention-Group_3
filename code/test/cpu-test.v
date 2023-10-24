@@ -1,15 +1,14 @@
 `timescale 1ns/100ps
 
-`include "./code/cpu/cpu.v"
+`include "../cpu/cpu.v"
 
 module cpu_test; 
 
     reg CLK, RESET;
-    wire [31:0] REG0, REG1, REG2, REG3, REG4, REG5, REG6, 
-    wire [31:0] PC_OUT
+    wire [31:0] REG0, REG1, REG2, REG3, REG4, REG5, REG6;
+    wire [31:0] PC_OUT;
 
-    
-    cpu mycpu(CLK, RESET, REG0, REG1, REG2, REG3, REG4, REG5, REG6, PC_OUT)
+    cpu mycpu(CLK, RESET, REG0, REG1, REG2, REG3, REG4, REG5, REG6, PC_OUT);
 
     always
         #5 CLK = ~CLK;
@@ -18,7 +17,7 @@ module cpu_test;
     begin
     
         // generate files needed to plot the waveform using GTKWave
-        $dumpfile("./dumps/cpuwave.vcd");
+        $dumpfile("cpuwave.vcd");
 		$dumpvars(0, cpu_test);
 		
         
