@@ -22,7 +22,7 @@ module mem_wb_reg(
 
     always @(posedge CLK, posedge RESET)
     begin
-    if (REST) begin
+    if (RESET) begin
         REG_WRITE_EN_MEMWB <= 1'b0;
         WB_VALUE_SEL_MEMWB <= 2'b0;
         MEM_READ_EN_MEMWB <= 1'b0;
