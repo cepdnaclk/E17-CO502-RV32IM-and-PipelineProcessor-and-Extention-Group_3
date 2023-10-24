@@ -22,7 +22,7 @@ module i_mem(
 
     initial
     begin
-        $readmemh();
+        $readmemh("Path",MEM_ARRAY);
     end
 
     always @(*)
