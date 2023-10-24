@@ -18,7 +18,7 @@ module dcache (
     mem_WRITE_DATA,
     // inputs
     mem_READ_DATA,
-    mem_busywait,
+    mem_busywait
     // outputs test
     // test_output
     );
