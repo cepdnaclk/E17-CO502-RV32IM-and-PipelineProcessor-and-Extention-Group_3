@@ -22,7 +22,7 @@ module i_mem(
 
     initial
     begin
-        $readmemh("",MEM_ARRAY);
+        $readmemh("../../code/test/instructions/memfile.mem",MEM_ARRAY);
         //$readmemh("../../",MEM_ARRAY);
         //$readmemh("../../",MEM_ARRAY);
     end
