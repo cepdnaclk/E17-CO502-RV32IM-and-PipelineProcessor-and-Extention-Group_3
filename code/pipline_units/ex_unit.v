@@ -25,9 +25,9 @@ module ex_unit(
     input [31:0] ALU_RES_MEM,
     input [31:0] WRITE_DATA_WB,
     // EX_FWD_UNIT
-    input [31:0] REG_WRITE_ADDR_MEM,
+    input [4:0] REG_WRITE_ADDR_MEM,
     input MEM_WRITE_EN_MEM,
-    input [31:0] REG_WRITE_ADDR_WB,
+    input [4:0] REG_WRITE_ADDR_WB,
     input REG_WRITE_EN_WB,
     // outputs
     output REG_WRITE_EN_EX,
@@ -66,14 +66,14 @@ module ex_unit(
         ALU_RES_MEM,
         WRITE_DATA_WB,
         OP1_FWD_SEL,
-        Op1_Fwd_Sel_Mux_Out,
+        Op1_Fwd_Sel_Mux_Out
     );
     mux3x1 Op2_Fwd_Sel_Mux(
         DATA_2_IDEX,
         ALU_RES_MEM,
         WRITE_DATA_WB,
         OP2_FWD_SEL,
-        Op2_Fwd_Sel_Mux_Out,
+        Op2_Fwd_Sel_Mux_Out
     );
     mux2x1 Op1_Sel_Mux(
         Op1_Fwd_Sel_Mux_Out,
@@ -89,7 +89,6 @@ module ex_unit(
     );
     complementer Complementer(
         Op2_Sel_Mux_Out,
-        COMP_SEL_IDEX,
         Op2_Sel_Mux_Out_Complement
     );
     alu_int Alu_Int(

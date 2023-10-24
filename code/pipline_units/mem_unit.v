@@ -20,7 +20,7 @@ module mem_unit(
     output REG_WRITE_EN_MEM,
     output [1:0] WB_VALUE_SEL_MEM,
     output MEM_READ_EN_MEM,
-    output [31:0] PC_4_MEM,
+    output reg [31:0] PC_4_MEM,
     output [31:0] ALU_RESULT,
     output [31:0] READ_DATA,
     output REG_WRITE_ADDR_MEM
