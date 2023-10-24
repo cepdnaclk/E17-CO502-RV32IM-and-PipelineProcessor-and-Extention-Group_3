@@ -23,7 +23,7 @@ module mem_unit(
     output reg [31:0] PC_4_MEM,
     output [31:0] ALU_RESULT,
     output [31:0] READ_DATA,
-    output REG_WRITE_ADDR_MEM
+    output [4:0] REG_WRITE_ADDR_MEM
 );
 
     wire MEM_FWD_SEL;
