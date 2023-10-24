@@ -15,7 +15,7 @@ module cpu_test;
 
     initial
     begin
-    
+
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("dumps/cpuwave.vcd");
 		$dumpvars(0, cpu_test);

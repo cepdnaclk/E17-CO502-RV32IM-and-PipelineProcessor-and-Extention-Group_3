@@ -14,7 +14,7 @@ module i_cache(
     output reg BUSYWAIT;
     output reg [31:0] INSTRUCTION;
 
-    wire VALID, MEM_BUSYWAIT;
+    wire VALID, IMEM_BUSYWAIT;
     wire [1:0] OFFSET;
     wire [2:0] INDEX;
     wire [127:0] READ_DATA;
@@ -35,7 +35,7 @@ module i_cache(
         MEM_READ,
         MEM_ADDR,
         // outputs
-        MEM_BUSYWAIT,
+        IMEM_BUSYWAIT,
         READ_DATA
     );
 
@@ -84,7 +84,7 @@ module i_cache(
                     next_state <= IDLE_STATE;
             // Memory read state
             MEM_READ_STATE:
-                if (!MEM_BUSYWAIT)
+                if (!IMEM_BUSYWAIT)
                     next_state <= CACHE_WRITE_STATE;
                 else    
                     next_state <= MEM_READ_STATE;
