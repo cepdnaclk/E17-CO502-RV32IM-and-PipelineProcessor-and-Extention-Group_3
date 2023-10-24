@@ -68,6 +68,4 @@ module mem_unit(
         MEM_FWD_SEL
     );
 
-
-
 endmodule
