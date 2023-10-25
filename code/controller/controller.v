@@ -30,7 +30,7 @@ module controller(
 
     wire [4:0] ALU_SELECT;
 
-    assign ALU_SELECT = {1'b0,FUNC7[6],FUNC3};
+    assign ALU_SELECT = {1'b0,FUNC7[5],FUNC3};
 
     always @ (*)
     begin
@@ -129,7 +129,9 @@ module controller(
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd4;
-            ALU_OP <= ALU_SELECT;
+            //ALU_OP <= ALU_SELECT;
+            ALU_OP <= ((FUNC3 == 3'b101) || (FUNC3 == 3'b001)) ? ALU_SELECT: {2'b0, FUNC3} ;
+
         end
         7'b0110011: begin // ADD, SUB, AND, OR
             MEM_READ_EN <= 1'd0;
@@ -142,6 +144,7 @@ module controller(
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
             ALU_OP <= ALU_SELECT;
+
         end
         default: begin // Default
             MEM_READ_EN <= 1'd0;

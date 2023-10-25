@@ -89,6 +89,7 @@ module ex_unit(
     );
     complementer Complementer(
         Op2_Sel_Mux_Out,
+        COMP_SEL_IDEX,
         Op2_Sel_Mux_Out_Complement
     );
     alu_int Alu_Int(
