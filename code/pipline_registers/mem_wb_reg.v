@@ -35,7 +35,7 @@ module mem_wb_reg(
         WB_VALUE_SEL_MEMWB <= WB_VALUE_SEL_MEM;
         MEM_READ_EN_MEMWB <= MEM_READ_EN_MEM;
         PC_4_MEMWB <= PC_4_MEM;
-        ALU_RES_MEMWB <= ALU_RES_MEMWB;
+        ALU_RES_MEMWB <= ALU_RES_MEM;
         MEM_READ_MEMWB <= MEM_READ_MEM;
         REG_WRITE_ADDR_MEMWB <= REG_WRITE_ADDR_MEM;
     end

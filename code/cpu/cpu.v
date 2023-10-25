@@ -292,7 +292,7 @@ mem_unit mem_unit_module(
     MEM_READ_EN_EXMEM, 
     MEM_WRITE_EN_EXMEM, 
     PC_EXMEM, 
-    RESULT, 
+    ALU_RES_EXMEM, 
     REG_DATA_2_EXMEM, 
     FUNC3_EXMEM, 
     REG_WRITE_ADDR_EXMEM, 
