@@ -42,9 +42,9 @@ module controller(
             REG_WRITE_EN <= 1'd1;
             COMP_SEL <= 1'd0;
             WB_VALUE_SEL <= 2'd0;
-            OP2_SEL <= 1'd0;
+            OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd0;
-            IMM_SEL <= 3'd0;
+            IMM_SEL <= 3'b011;
             ALU_OP <= 5'b10000;
         end
         7'b0010111: begin // AUIPC
@@ -56,7 +56,7 @@ module controller(
             WB_VALUE_SEL <= 2'd0;
             OP2_SEL <= 1'd1;
             OP1_SEL <= 1'd1;
-            IMM_SEL <= 3'd3;
+            IMM_SEL <= 3'b011;
             ALU_OP <= 5'd0;
         end
         7'b1101111: begin // JAL
