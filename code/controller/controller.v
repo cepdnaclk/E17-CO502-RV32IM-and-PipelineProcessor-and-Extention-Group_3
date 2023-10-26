@@ -143,7 +143,8 @@ module controller(
             OP2_SEL <= 1'd0;
             OP1_SEL <= 1'd0;
             IMM_SEL <= 3'd0;
-            ALU_OP <= ALU_SELECT;
+            //ALU_OP <= ALU_SELECT;
+            ALU_OP <= ((FUNC3 == 3'b101) ) ? ALU_SELECT: {2'b0, FUNC3} ;
 
         end
         default: begin // Default
