@@ -17,7 +17,7 @@ module alu_int(
     output reg [31:0] RESULT;
     output ZERO, SIGN_BIT,SLTU_BIT;
 
-    wire[31:0] ADD,AND,OR,XOR,SLL,SRL,SRA,SLT,SLTU;
+    wire[31:0] ADD,AND,OR,XOR,SLL,SRL,SRA,SLT,SLTU, FORWARD;
 	
     assign FORWARD = OP2;
 	assign ADD = OP1 + OP2;
