@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module mem_wb_reg(
     // inputs
     input CLK,
@@ -23,21 +25,21 @@ module mem_wb_reg(
     always @(posedge CLK, posedge RESET)
     begin
     if (RESET) begin
-        REG_WRITE_EN_MEMWB <= 1'b0;
-        WB_VALUE_SEL_MEMWB <= 2'b0;
-        MEM_READ_EN_MEMWB <= 1'b0;
-        PC_4_MEMWB <= 32'b0;
-        ALU_RES_MEMWB <= 32'b0;
-        MEM_READ_MEMWB <= 32'b0;
-        REG_WRITE_ADDR_MEMWB <= 5'b0;
+        REG_WRITE_EN_MEMWB <= #0.1 1'b0;
+        WB_VALUE_SEL_MEMWB <= #0.1 2'b0;
+        MEM_READ_EN_MEMWB <= #0.1 1'b0;
+        PC_4_MEMWB <= #0.1 32'b0;
+        ALU_RES_MEMWB <= #0.1 32'b0;
+        MEM_READ_MEMWB <= #0.1 32'b0;
+        REG_WRITE_ADDR_MEMWB <= #0.1 5'b0;
     end else if (!MEM_BUSYWAIT) begin
-        REG_WRITE_EN_MEMWB <= REG_WRITE_EN_MEM;
-        WB_VALUE_SEL_MEMWB <= WB_VALUE_SEL_MEM;
-        MEM_READ_EN_MEMWB <= MEM_READ_EN_MEM;
-        PC_4_MEMWB <= PC_4_MEM;
-        ALU_RES_MEMWB <= ALU_RES_MEM;
-        MEM_READ_MEMWB <= MEM_READ_MEM;
-        REG_WRITE_ADDR_MEMWB <= REG_WRITE_ADDR_MEM;
+        REG_WRITE_EN_MEMWB <= #0.1 REG_WRITE_EN_MEM;
+        WB_VALUE_SEL_MEMWB <= #0.1 WB_VALUE_SEL_MEM;
+        MEM_READ_EN_MEMWB <= #0.1 MEM_READ_EN_MEM;
+        PC_4_MEMWB <= #0.1 PC_4_MEM;
+        ALU_RES_MEMWB <= #0.1 ALU_RES_MEM;
+        MEM_READ_MEMWB <= #0.1 MEM_READ_MEM;
+        REG_WRITE_ADDR_MEMWB <= #0.1 REG_WRITE_ADDR_MEM;
     end
     end
     

@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module bj_controller(
     // inputs
     PC,
@@ -38,7 +40,7 @@ module bj_controller(
     assign BGEU = (FUNC3[2]) & (FUNC3[1]) &  (FUNC3[0]) & (~SLTU_BIT);
 
     always @(*)begin
-        BRANCH_SEL <=(BJ_CTRL[0] &(BEQ|BNE|BGE|BLT|BLTU|BGEU)) | (BJ_CTRL[1]) | 1'b0;
+        BRANCH_SEL <= #1 (BJ_CTRL[0] &(BEQ|BNE|BGE|BLT|BLTU|BGEU)) | (BJ_CTRL[1]) | 1'b0;
     end
 
     always @(*) begin

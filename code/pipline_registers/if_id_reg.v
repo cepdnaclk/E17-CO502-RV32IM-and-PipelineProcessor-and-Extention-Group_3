@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module if_id_reg(
     // inputs
     input CLK,
@@ -17,16 +19,16 @@ module if_id_reg(
     always @(posedge CLK,posedge RESET)
     begin
         if(RESET)begin  // Clear the reg on reset
-        PC_IFID <=32'd0;
-        INSTRUCTION_IFID <=32'd0;
+        PC_IFID <= #0.1 32'd0;
+        INSTRUCTION_IFID <= #0.1 32'd0;
         end else if(HAZARD_RESET) begin
-        PC_IFID <=32'd0;
-        INSTRUCTION_IFID <=32'd0;
+        PC_IFID <= #0.1 32'd0;
+        INSTRUCTION_IFID <= #0.1 32'd0;
         end else if (!MEM_BUSYWAIT && HOLD == 1'b0 && !IMEM_BUSYWAIT) begin // Store all the related value in IF reg if  the previous stage isn't busy
-        PC_IFID <= PC_IF;
-        INSTRUCTION_IFID <= INSTRUCTION_IF;
+        PC_IFID <= #0.1 PC_IF;
+        INSTRUCTION_IFID <= #0.1 INSTRUCTION_IF;
         end else if (IMEM_BUSYWAIT) begin
-        INSTRUCTION_IFID <=32'd0;
+        INSTRUCTION_IFID <= #0.1 32'd0;
         end
     end
 

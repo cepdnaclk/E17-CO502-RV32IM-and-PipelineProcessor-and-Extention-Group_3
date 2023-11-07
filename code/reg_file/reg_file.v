@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module reg_file(
     // inputs
     WRITE_ADDR,
@@ -37,18 +39,18 @@ module reg_file(
 		begin
 				for(j = 0; j <= 31; j = j +1 )
 				begin
-					REGISTER[j] <= 32'b00000000000000000000000000000000; 
+					REGISTER[j] <= #1 32'd0; 
 				end
 		end
 		else if(WRITE_EN)
 		begin
-			REGISTER[WRITE_ADDR] <= WRITE_DATA;
+			REGISTER[WRITE_ADDR] <= #1 WRITE_DATA;
 		end
 
 	end
 
-    assign DATA_1 = REGISTER[ADDR_1];
-    assign DATA_2 = REGISTER[ADDR_2];
+    assign #2 DATA_1 = REGISTER[ADDR_1];
+    assign #2 DATA_2 = REGISTER[ADDR_2];
 
     assign REG0 = REGISTER[0];
     assign REG1 = REGISTER[1];

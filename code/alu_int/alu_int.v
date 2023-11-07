@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module alu_int(
     // inputs
     OP1,

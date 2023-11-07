@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module imm_gen(
     // inputs
     INSTRUCTION,
@@ -36,19 +38,19 @@ assign I_IMM={{21{INSTRUCTION[31]}},INSTRUCTION[30:20]};
 always @(*) begin
     case (IMM_SEL)
         3'b000: begin
-            IMM <= B_IMM;
+            IMM <= #1 B_IMM;
         end
         3'b001: begin
-            IMM <= J_IMM;
+            IMM <= #1 J_IMM;
         end
         3'b010: begin
-            IMM <= S_IMM;
+            IMM <= #1 S_IMM;
         end
         3'b011: begin
-            IMM <= U_IMM;
+            IMM <= #1 U_IMM;
         end
         default: begin
-            IMM <= I_IMM;
+            IMM <= #1 I_IMM;
         end
     endcase
 end

@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module ex_mem_reg(
     // inputs
     input CLK,
@@ -27,25 +29,25 @@ module ex_mem_reg(
     always @(posedge CLK, posedge RESET)
     begin
     if(RESET)begin
-      REG_WRITE_EN_EXMEM <= 1'd0;
-      WB_VALUE_SEL_EXMEM <= 2'd0;
-      MEM_READ_EN_EXMEM <= 1'b0;
-      MEM_WRITE_EN_EXMEM <= 1'b0;
-      PC_EXMEM <= 31'b0;
-      RESULT_EXMEM <= 31'b0;
-      REG_DATA_2_EXMEM<= 31'b0;
-      FUNC3_EXMEM <= 3'd0;
-      REG_WRITE_ADDR_EXMEM <= 5'd0;
+      REG_WRITE_EN_EXMEM <= #0.1 1'd0;
+      WB_VALUE_SEL_EXMEM <= #0.1 2'd0;
+      MEM_READ_EN_EXMEM <= #0.1 1'b0;
+      MEM_WRITE_EN_EXMEM <= #0.1 1'b0;
+      PC_EXMEM <= #0.1 31'b0;
+      RESULT_EXMEM <= #0.1 31'b0;
+      REG_DATA_2_EXMEM<= #0.1 31'b0;
+      FUNC3_EXMEM <= #0.1 3'd0;
+      REG_WRITE_ADDR_EXMEM <= #0.1 5'd0;
     end else if (!MEM_BUSYWAIT) begin
-      REG_WRITE_EN_EXMEM <= REG_WRITE_EN_EX;
-      WB_VALUE_SEL_EXMEM <= WB_VALUE_SEL_EX;
-      MEM_READ_EN_EXMEM <= MEM_READ_EN_EX;
-      MEM_WRITE_EN_EXMEM <= MEM_WRITE_EN_EX;
-      PC_EXMEM <= PC_EX;
-      RESULT_EXMEM <= RESULT_EX;
-      REG_DATA_2_EXMEM<= REG_DATA_2_EX;
-      FUNC3_EXMEM <= FUNC3_EX;
-      REG_WRITE_ADDR_EXMEM <= REG_WRITE_ADDR_EX;
+      REG_WRITE_EN_EXMEM <= #0.1 REG_WRITE_EN_EX;
+      WB_VALUE_SEL_EXMEM <= #0.1 WB_VALUE_SEL_EX;
+      MEM_READ_EN_EXMEM <= #0.1 MEM_READ_EN_EX;
+      MEM_WRITE_EN_EXMEM <= #0.1 MEM_WRITE_EN_EX;
+      PC_EXMEM <= #0.1 PC_EX;
+      RESULT_EXMEM <= #0.1 RESULT_EX;
+      REG_DATA_2_EXMEM <= #0.1 REG_DATA_2_EX;
+      FUNC3_EXMEM <= #0.1 FUNC3_EX;
+      REG_WRITE_ADDR_EXMEM <= #0.1 REG_WRITE_ADDR_EX;
     end
 
   end

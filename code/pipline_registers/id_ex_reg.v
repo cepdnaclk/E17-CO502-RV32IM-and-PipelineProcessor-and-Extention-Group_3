@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module id_ex_reg(
     // input
     input CLK,
@@ -45,62 +47,62 @@ module id_ex_reg(
 
     always @(posedge CLK, posedge RESET) begin
         if (RESET) begin
-            REG_WRITE_EN_IDEX <= 1'b0;
-            WB_VALUE_SEL_IDEX <= 2'b0;
-            MEM_READ_EN_IDEX <= 1'b0;
-            MEM_WRITE_EN_IDEX <= 1'b0;
-            BJ_CTRL_IDEX <= 2'b0;
-            ALU_OP_IDEX <= 5'b0;
-            COMP_SEL_IDEX <= 1'b0;
-            OP2_SEL_IDEX <= 1'b0;
-            OP1_SEL_IDEX <= 1'b0;
-            IMM_SEL_IDEX <= 32'b0;
-            PC_IDEX <= 32'b0;
-            DATA_1_IDEX <= 32'b0;
-            DATA_2_IDEX <= 32'b0;
-            IMM_IDEX <= 32'b0;
-            FUNC3_IDEX <= 3'b0;
-            ADDR_1_IDEX <= 5'b0;
-            ADDR_2_IDEX <= 5'b0;
-            REG_WRITE_ADDR_IDEX <= 5'b0;
+            REG_WRITE_EN_IDEX <= #0.1 1'b0;
+            WB_VALUE_SEL_IDEX <= #0.1 2'b0;
+            MEM_READ_EN_IDEX <= #0.1 1'b0;
+            MEM_WRITE_EN_IDEX <= #0.1 1'b0;
+            BJ_CTRL_IDEX <= #0.1 2'b0;
+            ALU_OP_IDEX <= #0.1 5'b0;
+            COMP_SEL_IDEX <= #0.1 1'b0;
+            OP2_SEL_IDEX <= #0.1 1'b0;
+            OP1_SEL_IDEX <= #0.1 1'b0;
+            IMM_SEL_IDEX <= #0.1 32'b0;
+            PC_IDEX <= #0.1 32'b0;
+            DATA_1_IDEX <= #0.1 32'b0;
+            DATA_2_IDEX <= #0.1 32'b0;
+            IMM_IDEX <= #0.1 32'b0;
+            FUNC3_IDEX <= #0.1 3'b0;
+            ADDR_1_IDEX <= #0.1 5'b0;
+            ADDR_2_IDEX <= #0.1 5'b0;
+            REG_WRITE_ADDR_IDEX <= #0.1 5'b0;
         end else if (IDEX_RESET) begin
-            REG_WRITE_EN_IDEX <= 1'b0;
-            WB_VALUE_SEL_IDEX <= 2'b0;
-            MEM_READ_EN_IDEX <= 1'b0;
-            MEM_WRITE_EN_IDEX <= 1'b0;
-            BJ_CTRL_IDEX <= 2'b0;
-            ALU_OP_IDEX <= 5'b0;
-            COMP_SEL_IDEX <= 1'b0;
-            OP2_SEL_IDEX <= 1'b0;
-            OP1_SEL_IDEX <= 1'b0;
-            IMM_SEL_IDEX <= 32'b0;
-            PC_IDEX <= 32'b0;
-            DATA_1_IDEX <= 32'b0;
-            DATA_2_IDEX <= 32'b0;
-            IMM_IDEX <= 32'b0;
-            FUNC3_IDEX <= 3'b0;
-            ADDR_1_IDEX <= 5'b0;
-            ADDR_2_IDEX <= 5'b0;
-            REG_WRITE_ADDR_IDEX <= 5'b0;
+            REG_WRITE_EN_IDEX <= #0.1 1'b0;
+            WB_VALUE_SEL_IDEX <= #0.1 2'b0;
+            MEM_READ_EN_IDEX <= #0.1 1'b0;
+            MEM_WRITE_EN_IDEX <= #0.1 1'b0;
+            BJ_CTRL_IDEX <= #0.1 2'b0;
+            ALU_OP_IDEX <= #0.1 5'b0;
+            COMP_SEL_IDEX <= #0.1 1'b0;
+            OP2_SEL_IDEX <= #0.1 1'b0;
+            OP1_SEL_IDEX <= #0.1 1'b0;
+            IMM_SEL_IDEX <= #0.1 32'b0;
+            PC_IDEX <= #0.1 32'b0;
+            DATA_1_IDEX <= #0.1 32'b0;
+            DATA_2_IDEX <= #0.1 32'b0;
+            IMM_IDEX <= #0.1 32'b0;
+            FUNC3_IDEX <= #0.1 3'b0;
+            ADDR_1_IDEX <= #0.1 5'b0;
+            ADDR_2_IDEX <= #0.1 5'b0;
+            REG_WRITE_ADDR_IDEX <= #0.1 5'b0;
         end else if (!MEM_BUSYWAIT) begin
-            REG_WRITE_EN_IDEX <= REG_WRITE_EN_ID;
-            WB_VALUE_SEL_IDEX <= WB_VALUE_SEL_ID;
-            MEM_READ_EN_IDEX <= MEM_READ_EN_ID;
-            MEM_WRITE_EN_IDEX <= MEM_WRITE_EN_ID;
-            BJ_CTRL_IDEX <= BJ_CTRL_ID;
-            ALU_OP_IDEX <= ALU_OP_ID;
-            COMP_SEL_IDEX <= COMP_SEL_ID;
-            OP2_SEL_IDEX <= OP2_SEL_ID;
-            OP1_SEL_IDEX <= OP1_SEL_ID;
-            IMM_SEL_IDEX <= IMM_SEL_ID;
-            PC_IDEX <= PC_ID;
-            DATA_1_IDEX <= DATA_1_ID;
-            DATA_2_IDEX <= DATA_2_ID;
-            IMM_IDEX <= IMM_ID;
-            FUNC3_IDEX <= FUNC3_ID;
-            ADDR_1_IDEX <= ADDR_1_ID;
-            ADDR_2_IDEX <= ADDR_2_ID;
-            REG_WRITE_ADDR_IDEX <= REG_WRITE_ADDR_ID;
+            REG_WRITE_EN_IDEX <= #0.1 REG_WRITE_EN_ID;
+            WB_VALUE_SEL_IDEX <= #0.1 WB_VALUE_SEL_ID;
+            MEM_READ_EN_IDEX <= #0.1 MEM_READ_EN_ID;
+            MEM_WRITE_EN_IDEX <= #0.1 MEM_WRITE_EN_ID;
+            BJ_CTRL_IDEX <= #0.1 BJ_CTRL_ID;
+            ALU_OP_IDEX <= #0.1 ALU_OP_ID;
+            COMP_SEL_IDEX <= #0.1 COMP_SEL_ID;
+            OP2_SEL_IDEX <= #0.1 OP2_SEL_ID;
+            OP1_SEL_IDEX <= #0.1 OP1_SEL_ID;
+            IMM_SEL_IDEX <= #0.1 IMM_SEL_ID;
+            PC_IDEX <= #0.1 PC_ID;
+            DATA_1_IDEX <= #0.1 DATA_1_ID;
+            DATA_2_IDEX <= #0.1 DATA_2_ID;
+            IMM_IDEX <= #0.1 IMM_ID;
+            FUNC3_IDEX <= #0.1 FUNC3_ID;
+            ADDR_1_IDEX <= #0.1 ADDR_1_ID;
+            ADDR_2_IDEX <= #0.1 ADDR_2_ID;
+            REG_WRITE_ADDR_IDEX <= #0.1 REG_WRITE_ADDR_ID;
         end   
     end
 

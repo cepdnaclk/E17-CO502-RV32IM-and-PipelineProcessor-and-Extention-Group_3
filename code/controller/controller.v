@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 module controller(
     // inputs
     OPCODE,
@@ -34,6 +36,7 @@ module controller(
 
     always @ (*)
     begin
+        #1
         case(OPCODE)
         7'b0110111: begin // LUI
             MEM_READ_EN <= 1'd0;
