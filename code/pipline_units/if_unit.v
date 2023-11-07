@@ -39,7 +39,7 @@ module if_unit(
         PC_PLUS_FOUR <= PC + 4;
     end
 
-    always @(posedge CLK, posedge RESET,BRANCH_SEL) begin //update the pc value depend on the positive clock edge
+    always @(posedge CLK, posedge RESET, posedge BRANCH_SEL) begin //update the pc value depend on the positive clock edge
         if(RESET)begin
             PC <= -4;  // set the PC = -4, the pervious always block increase it to 0
         end
@@ -47,6 +47,8 @@ module if_unit(
             //$display(Branch_Select_Mux_Out);
             //f$display("-");
             #1 PC <=  Branch_Select_Mux_Out; 
+        end else if(MEM_BUSYWAIT == 1'b0 && BRANCH_SEL == 1'b1)begin
+            #1 PC <=  Branch_Select_Mux_Out;
         end
     end
 
