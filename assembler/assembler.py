@@ -2,7 +2,7 @@ import sys
 import os 
 import shutil
 import re
-from formatter import r_format, i_format,i2_format, s_format, l_format, b_format, u_format, j_format, j2_format
+from formatins import r_format, i_format,i2_format, s_format, l_format, b_format, u_format, j_format, j2_format
 
 # instuction type
 ins_types = {}
