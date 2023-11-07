@@ -19,16 +19,16 @@ module alu_int(
 
     wire[31:0] ADD, AND, OR, XOR, SLL, SRL, SRA, SLT, SLTU, FORWARD;
 	
-    assign FORWARD = OP2;
-	assign ADD = OP1 + OP2;
-	assign AND = OP1 & OP2;
-	assign OR = OP1 | OP2;
-	assign XOR = OP1 ^ OP2;
-	assign SLL = OP1 << OP2; //  shift left logical
-	assign SRL = OP1 >> OP2; // shift right logical						  
-    assign SRA = OP1 >>> OP2; // shift right arithmetic
-	assign SLT = ($signed(OP1) < $signed(OP2)) ? 32'd1 : 32'd0; 
-	assign SLTU = ($unsigned(OP1) < $unsigned(OP2)) ? 32'd1 : 32'd0;
+    assign #1 FORWARD = OP2;
+	assign #2 ADD = OP1 + OP2;
+	assign #1 AND = OP1 & OP2;
+	assign #1 OR = OP1 | OP2;
+	assign #1 XOR = OP1 ^ OP2;
+	assign #2 SLL = OP1 << OP2; //  shift left logical
+	assign #2 SRL = OP1 >> OP2; // shift right logical						  
+    assign #2 SRA = OP1 >>> OP2; // shift right arithmetic
+	assign #2 SLT = ($signed(OP1) < $signed(OP2)) ? 32'd1 : 32'd0; 
+	assign #2 SLTU = ($unsigned(OP1) < $unsigned(OP2)) ? 32'd1 : 32'd0;
 
     //always block
 	always @ (*)
