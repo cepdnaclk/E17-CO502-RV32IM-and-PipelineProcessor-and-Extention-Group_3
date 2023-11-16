@@ -1,3 +1,4 @@
+`include "./mem.v"
 module cache (
   input wire [31:0] address,
   input wire [31:0] data_in,
@@ -33,6 +34,11 @@ module cache (
   // Create storage for LRU information
   reg [ASSOCIATIVITY-1:0] lru [0:NUM_SETS-1];
 
+  // Internal signals for memory interface
+  reg [31:0] mem_data_out;
+  reg mem_valid_out;
+  reg mem_busy_wait;
+
   // Inputs
   wire [INDEX_BITS-1:0] index = address[INDEX_BITS+OFFSET_BITS-1:OFFSET_BITS];
   wire [TAG_BITS-1:0] tag = address[31:INDEX_BITS+OFFSET_BITS];
@@ -46,6 +52,17 @@ module cache (
   integer lru_way = 0;
   integer way_match = -1;
   integer match_found = 0;
+
+
+Memory uut_memory (
+    .clk(clk),
+    .address(address[31:2]),
+    .data_in(32'h0),
+    .read_enable(1),
+    .write_enable(0),
+    .data_out(mem_data_out),
+    .busy_wait(mem_busy_wait)
+);
 
   // Read operation with LRU handling
   always @(posedge clk) begin
@@ -74,6 +91,21 @@ module cache (
         read_data = cache_data[index][way_match];
         read_valid = 1'b1;
       end
+    end
+
+    // If cache miss and read_enable is high, initiate memory read
+    if (read_enable && !match_found) begin
+      // Assume mem_busy_wait signal indicates the completion of the read
+      mem_busy_wait = 1;
+      // Connect to memory module to perform read operation
+      
+      // Update cache with data from memory
+      cache_data[index][lru_way] = mem_data_out;
+      cache_tag[index][lru_way] = tag;
+      valid[index][lru_way] = 1; // Assuming data is valid after memory read
+      lru[index][lru_way] = 0; // The LRU way is the most recently used
+      read_data = mem_data_out;
+      read_valid = 1'b1;
     end
   end
 

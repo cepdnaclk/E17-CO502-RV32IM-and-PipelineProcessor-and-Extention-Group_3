@@ -1,41 +1,47 @@
-`include "./cache.v"
-`include "./memory.v"
-
-module top_module (
+module Memory (
+  input wire clk,
+  input wire reset,
   input wire [31:0] address,
   input wire [31:0] data_in,
-  input wire valid_in,
+  input wire read_enable,
   input wire write_enable,
-  input wire clk,
   output wire [31:0] data_out,
-  output wire valid_out
+  output wire busy_wait
 );
 
-  wire [31:0] memory_data;
-  wire [31:0] cache_data;
-  wire cache_valid;
+  // Internal memory storage
+  reg [31:0] memory [0:1024];
 
-  // Instantiate the memory module
-  memory mem (
-    .address(address),
-    .data_in(data_in),
-    .write_enable(write_enable),
-    .clk(clk),
-    .data_out(memory_data)
-  );
+  // Internal signals
+  reg [31:0] read_data;
+  reg busy_wait_internal;
 
-  // Instantiate the cache module with your desired parameters
-  cache cache_inst (
-    .address(address),
-    .data_in(memory_data),
-    .valid_in(valid_in),
-    .write_enable(write_enable),
-    .clk(clk),
-    .data_out(cache_data),
-    .valid_out(cache_valid)
-  );
+  // Read and write operations
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      // Reset memory content
+      for (integer i = 0; i < 1024; i = i + 1) begin
+        memory[i] = 32'h0;
+      end
+    end else begin
+      // Read operation
+      if (read_enable) begin
+        busy_wait_internal = 1; // Set busy wait signal
+        read_data = memory[address[31:1]];
+        busy_wait_internal = 0; // Clear busy wait signal
+      end
 
-  // Connect the cache output to the top-level output
-  assign data_out = cache_data;
-  assign valid_out = cache_valid;
+      // Write operation
+      if (write_enable) begin
+        busy_wait_internal = 1; // Set busy wait signal
+        memory[address[31:2]] = data_in;
+        busy_wait_internal = 0; // Clear busy wait signal
+      end
+    end
+  end
+
+  // Output signals
+  assign data_out = read_data;
+  assign busy_wait = busy_wait_internal;
+
 endmodule
