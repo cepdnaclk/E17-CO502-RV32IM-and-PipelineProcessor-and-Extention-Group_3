@@ -1,0 +1,60 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sat Nov 18 18:56:39 2023
+[*]
+[dumpfile] "F:\Engineering 8th Sem\CO 502 Advance Computer Architecture\E17-CO502-RV32IM-and-PipelineProcessor-and-Extention-Group_3\paramerized-cache\wavedata.vcd"
+[dumpfile_mtime] "Sat Nov 18 18:53:48 2023"
+[dumpfile_size] 4259
+[savefile] "F:\Engineering 8th Sem\CO 502 Advance Computer Architecture\E17-CO502-RV32IM-and-PipelineProcessor-and-Extention-Group_3\paramerized-cache\debug.gtkw"
+[timestart] 0
+[size] 1366 705
+[pos] -1 -1
+*-3.449646 15 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_cache.
+[sst_width] 230
+[signals_width] 230
+[sst_expanded] 1
+[sst_vpaned_height] 191
+@28
+tb_cache.clock
+tb_cache.reset
+tb_cache.read_en
+tb_cache.write_en
+@24
+tb_cache.addr[31:0]
+tb_cache.write_data[31:0]
+@22
+tb_cache.read_data[31:0]
+@28
+tb_cache.busywait
+@200
+-cache
+@28
+tb_cache.mycache.ADDR[31:0]
+@22
+tb_cache.mycache.WRITE_DATA[31:0]
+@28
+tb_cache.mycache.tag[23:0]
+tb_cache.mycache.index[5:0]
+tb_cache.mycache.offset[1:0]
+tb_cache.mycache.BUSYWAIT
+tb_cache.mycache.WRITE_EN
+tb_cache.mycache.READ_EN
+@200
+-
+@28
+tb_cache.mycache.next_state[2:0]
+tb_cache.mycache.state[2:0]
+@24
+tb_cache.mycache.hit
+@28
+tb_cache.mycache.MEM_BUSYWAIT
+@420
+tb_cache.mycache.way_match
+@29
+tb_cache.mycache.MEM_READ_EN
+@22
+tb_cache.mycache.MEM_ADDR[29:0]
+tb_cache.mycache.MEM_READ_DATA[127:0]
+[pattern_trace] 1
+[pattern_trace] 0
